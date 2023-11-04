@@ -49,7 +49,7 @@ function addEnchantment(tradeIndex) {
         </select>
         <label for="outputItemEnchantmentLevel${tradeIndex}_${enchantmentIndex}">Niveau d'enchantement :</label>
         <input type="number" id="outputItemEnchantmentLevel${tradeIndex}_${enchantmentIndex}" min="1" max="255">
-        <button onclick="removeEnchantment(${tradeIndex}, ${enchantmentIndex})">Supprimer cet enchantement</button>
+        <button onclick="removeEnchantment(${tradeIndex}, ${enchantmentIndex})">Supprimer cet enchantement</button><br><hr>
     `;
     outputeItemEnchantmentContainer.appendChild(enchantmentDiv);
 }
@@ -68,6 +68,15 @@ function addTrade() {
         tradeDiv.id = `trade${tradeCount}`;
         tradeDiv.innerHTML = `
             <h3>Échange ${tradeCount}</h3>
+
+            <div class="item-container">
+                <label for="maxUses${tradeCount}">Max Uses :</label>
+                <input type="number" id="maxUses${tradeCount}" min="1" max="9999999" value="9999999"><br>
+
+                <label for="rewardExp${tradeCount}">Don't reward XP :</label>
+                <input type="checkbox" id="rewardExp${tradeCount}" checked><br>
+            </div>
+
             <div class="item-container">
                 <label for="inputItem${tradeCount}">Item d'Entrée 1 :</label>
                 <input type="text" id="inputItem${tradeCount}" placeholder="ex : diamond_sword"><br>
@@ -89,13 +98,13 @@ function addTrade() {
                 <label for="outputItemAmount${tradeCount}">Quantité Item de Sortie :</label>
                 <input type="number" id="outputItemAmount${tradeCount}" value="1"><br>
                 
-                <label for="outputItemName${tradeCount}" class="output-item-container">Nom de l'Item de Sortie :</label>
+                <label for="outputItemName${tradeCount}" class="output-item-container">Display Name:</label>
                 <div class="output-item-color-container">
                 <input type="text" id="outputItemName${tradeCount}" placeholder="Nom de l'item"><br>
                 <input type="color" id="outputItemNameColor${tradeCount}" class="name-color" value="#ffffff"><br>
                 </div>
 
-                <label for="outputItemLore${tradeCount}" class="output-item-container">Lore de l'Item de Sortie :</label>
+                <label for="outputItemLore${tradeCount}" class="output-item-container">Display Lore:</label>
                 <div class="lore-color-container">
                 <input type="text" id="outputItemLore${tradeCount}" placeholder="Lore de l'item"><br>
                 <input type="color" id="outputItemLoreColor${tradeCount}" class="lore-color" value="#808080"><br>
@@ -116,7 +125,7 @@ function addTrade() {
                 <div class="enchantment-container" id="enchantmentContainer${tradeCount}">
                 <!-- Enchantments will be added here -->
                 </div>
-                <button onclick="addEnchantment(${tradeCount})">Ajouter un enchantement</button>
+                <button onclick="addEnchantment(${tradeCount})">Ajouter un enchantement</button><br><br><hr>
                 <button onclick="removeTrade(${tradeCount})">Supprimer cet Échange</button><br><br>
             </div>
         `;
@@ -132,17 +141,15 @@ function removeTrade(tradeIndex) {
 
 function generateCommand() {
     const villagerName = document.getElementById("villagerName").value;
-    const biome = document.getElementById("biome").value.toLowerCase(); // Convertir en minuscules
-    const profession = document.getElementById("profession").value.toLowerCase(); // Convertir en minuscules
+    const biome = document.getElementById("biome").value.toLowerCase();
+    const profession = document.getElementById("profession").value.toLowerCase();
     const level = document.getElementById("level").value;
     const spawnType = document.getElementById("spawnType").value;
     const spawnX = document.getElementById("spawnX").value;
     const spawnY = document.getElementById("spawnY").value;
     const spawnZ = document.getElementById("spawnZ").value;
 
-    let command = `/summon minecraft:villager ${spawnType === 'relative' ? `~${spawnX} ~${spawnY} ~${spawnZ}` : `${spawnX} ${spawnY} ${spawnZ}`} {VillagerData:{profession:"${profession}",level:${level},type:"${biome}"},Invulnerable:${document.getElementById("invulnerable").checked ? "1" : "0"}b,PersistenceRequired:${document.getElementById("persistent").checked ? "1" : "0"}b,Silent:${document.getElementById("silent").checked ? "1" : "0"}b,NoAI:${document.getElementById("noAI").checked ? "1" : "0"}b,CustomName:'{"text":"${villagerName}"}'`;
-
-    command += `,Offers:{Recipes:[`;
+    let command = `/summon minecraft:villager ${spawnType === 'relative' ? `~${spawnX} ~${spawnY} ~${spawnZ}` : `${spawnX} ${spawnY} ${spawnZ}`} {VillagerData:{profession:"${profession}",level:${level},type:"${biome}"},Invulnerable:${document.getElementById("invulnerable").checked ? "1" : "0"}b,PersistenceRequired:${document.getElementById("persistent").checked ? "1" : "0"}b,Silent:${document.getElementById("silent").checked ? "1" : "0"}b,NoAI:${document.getElementById("noAI").checked ? "1" : "0"}b,CustomName:'{"text":"${villagerName}"}',Offers:{Recipes:[`;
 
     for (let i = 1; i <= tradeCount; i++) {
         const inputItem = document.getElementById(`inputItem${i}`).value;
@@ -159,6 +166,8 @@ function generateCommand() {
         const outputItemUnbreakable = document.getElementById(`outputItemUnbreakable${i}`).checked;
         const outputItemCanDestroy = document.getElementById(`outputItemCanDestroy${i}`).value;
         const outputItemCanPlaceOn = document.getElementById(`outputItemCanPlaceOn${i}`).value;
+        const rewardExp = document.getElementById(`rewardExp${i}`).checked;
+        const maxUses = document.getElementById(`maxUses${i}`).value;
         const outputeItemEnchantmentContainer = document.querySelectorAll(`#enchantmentContainer${i} select`);
         const outpoutItemEnchantmentLevels = document.querySelectorAll(`#enchantmentContainer${i} input`);
 
@@ -179,7 +188,7 @@ function generateCommand() {
                 command += `id:"${outputItem}",Count:${outputItemAmount},`;
             }
 
-            if (outputItemName || outputItemLore || outputeItemEnchantmentContainer.length > 0 || outputItemCustomModelData !== "0" || outputItemUnbreakable || outputItemCanDestroy || outputItemCanPlaceOn) {
+            if (outputItemName || outputItemLore || outputeItemEnchantmentContainer.length > 0 || outputItemCustomModelData !== "0" || outputItemUnbreakable || outputItemCanDestroy || outputItemCanPlaceOn || rewardExp) {
                 command += `tag:{`;
 
                 if (outputItemName) {
@@ -187,10 +196,10 @@ function generateCommand() {
 
                     if (outputItemLore) {
                         command += `,`
-                        command += `Lore:['{"text":"${outputItemLore}","color":"${outputItemLoreColor}"}']},`;
-                    } else {
-                        command += `},`;
+                        command += `Lore:['{"text":"${outputItemLore}","color":"${outputItemLoreColor}"}']`;
                     }
+
+                    command += `},`;
                 }
 
                 if (outputeItemEnchantmentContainer.length > 0) {
@@ -226,6 +235,18 @@ function generateCommand() {
 
                 if (outputItemCanPlaceOn) {
                     command += `CanPlaceOn:[${outputItemCanPlaceOn}],`;
+                }
+
+                if (rewardExp) {
+                    command += `rewardExp:0b,`;
+                } else {
+                    command += `rewardExp:1b,`;
+                }
+
+                if (maxUses) {
+                    command += `maxUses:${maxUses}`;
+                } else {
+                    command += `maxUses:9999999`;
                 }
 
                 command += `}`;
