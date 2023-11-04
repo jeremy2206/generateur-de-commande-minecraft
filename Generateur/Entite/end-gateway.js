@@ -21,13 +21,14 @@ function generateCommand() {
     const yCoordFormatted = formatCoord(yCoord);
     const zCoordFormatted = formatCoord(zCoord);
 
-    let command = `/setblock ${xCoordFormatted} ${yCoordFormatted} ${zCoordFormatted} minecraft:end_gateway replace {`;
+    let command = `/setblock ${xCoordFormatted} ${yCoordFormatted} ${zCoordFormatted} minecraft:end_gateway{`;
 
     if (age) {
         command += `Age:${age}, `;
     }
 
     command += `ExactTeleport:${exactTeleport}, ExitPortal:{X:${exitX}, Y:${exitY}, Z:${exitZ}}}`;
+    command += ` replace`
 
     const commandResult = document.getElementById("commandResult");
     commandResult.value = command;
