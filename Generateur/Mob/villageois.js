@@ -148,8 +148,10 @@ function generateCommand() {
     const spawnX = document.getElementById("spawnX").value;
     const spawnY = document.getElementById("spawnY").value;
     const spawnZ = document.getElementById("spawnZ").value;
+    const vilagerRotaHorizontale = document.getElementById("rotationY").value;
+    const vilagerRotaVerticale = document.getElementById("rotationX").value;
 
-    let command = `/summon minecraft:villager ${spawnType === 'relative' ? `~${spawnX} ~${spawnY} ~${spawnZ}` : `${spawnX} ${spawnY} ${spawnZ}`} {VillagerData:{profession:"${profession}",level:${level},type:"${biome}"},Invulnerable:${document.getElementById("invulnerable").checked ? "1" : "0"}b,PersistenceRequired:${document.getElementById("persistent").checked ? "1" : "0"}b,Silent:${document.getElementById("silent").checked ? "1" : "0"}b,NoAI:${document.getElementById("noAI").checked ? "1" : "0"}b,CustomName:'{"text":"${villagerName}"}',Offers:{Recipes:[`;
+    let command = `/summon minecraft:villager ${spawnType === 'relative' ? `~${spawnX} ~${spawnY} ~${spawnZ}` : `${spawnX} ${spawnY} ${spawnZ}`} {VillagerData:{profession:"${profession}",level:${level},type:"${biome}"},Invulnerable:${document.getElementById("invulnerable").checked ? "1" : "0"}b,PersistenceRequired:${document.getElementById("persistent").checked ? "1" : "0"}b,Silent:${document.getElementById("silent").checked ? "1" : "0"}b,NoAI:${document.getElementById("noAI").checked ? "1" : "0"}b,Rotation:[${vilagerRotaHorizontale}f,${vilagerRotaVerticale}f],CustomName:'{"text":"${villagerName}"}',Offers:{Recipes:[`;
 
     for (let i = 1; i <= tradeCount; i++) {
         const inputItem = document.getElementById(`inputItem${i}`).value;
