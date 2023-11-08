@@ -1,9 +1,8 @@
-// script.js
 let tradeCount = 0;
 const maxTrades = 10;
 
 function addEnchantment(tradeIndex) {
-    const outputeItemEnchantmentContainer = document.getElementById(`enchantmentContainer${tradeIndex}`);
+    const outputeItemEnchantmentContainer = document.getElementById(`enchantmentContainer${tradeCount}`);
     const enchantmentDiv = document.createElement("div");
     const enchantmentIndex = outputeItemEnchantmentContainer.childElementCount + 1;
     enchantmentDiv.id = `enchantment${tradeIndex}_${enchantmentIndex}`;
@@ -49,7 +48,7 @@ function addEnchantment(tradeIndex) {
         </select>
         <label for="outputItemEnchantmentLevel${tradeIndex}_${enchantmentIndex}">Niveau d'enchantement :</label>
         <input type="number" id="outputItemEnchantmentLevel${tradeIndex}_${enchantmentIndex}" min="1" max="255">
-        <button onclick="removeEnchantment(${tradeIndex}, ${enchantmentIndex})">Supprimer cet enchantement</button><br><hr>
+        <button class="delete-button" onclick="removeEnchantment(${tradeIndex}, ${enchantmentIndex})">Supprimer cet enchantement</button><br><hr>
     `;
     outputeItemEnchantmentContainer.appendChild(enchantmentDiv);
 }
@@ -57,6 +56,70 @@ function addEnchantment(tradeIndex) {
 function removeEnchantment(tradeIndex, enchantmentIndex) {
     const enchantmentDiv = document.getElementById(`enchantment${tradeIndex}_${enchantmentIndex}`);
     enchantmentDiv.remove();
+}
+
+function addAttributeModifier(tradeIndex) {
+    const attributeModifiersContainer = document.getElementById(`attributeModifiersContainer${tradeIndex}`);
+    const attributeModifierDiv = document.createElement("div");
+    const attributeModifierIndex = attributeModifiersContainer.childElementCount + 1;
+
+    // Générez des UUID uniques pour l'attribut modificateur
+    const uuid1 = generateUniqueUUID();
+    const uuid2 = generateUniqueUUID();
+    const uuid3 = generateUniqueUUID();
+    const uuid4 = generateUniqueUUID();
+
+    attributeModifierDiv.id = `attributeModifier${tradeIndex}_${attributeModifierIndex}`; // Ajoutez un ID à l'élément
+    attributeModifierDiv.innerHTML = `
+        <label for="outputAttributeEffect${tradeIndex}_${attributeModifierIndex}">Attribut :</label>
+        <select id="outputAttributeEffect${tradeIndex}_${attributeModifierIndex}">
+            <option value="armor">Armor</option>
+            <option value="armor_toughness">Armor Toughness</option>
+            <option value="attack_damage">Attack Damage</option>
+            <option value="attack_knockback">Attack Knockback</option>
+            <option value="attack_speed">Attack Speed</option>
+            <option value="flying_speed">Flying Speed</option>
+            <option value="follow_range">Follow Range</option>
+            <option value="knockback_resistance">Knockback Resistance</option>
+            <option value="luck">Luck</option>
+            <option value="max_health">Max Health</option>
+            <option value="movement_speed">Movement Speed</option>
+            <option value="jump_strength">Jump Strength</option>
+            <option value="spawn_reinforcements">Spawn Reinforcements</option>
+        </select>
+        
+        <label for="outputAttributeEffectName${tradeIndex}_${attributeModifierIndex}">Nom de l'attribut :</label>
+        <input type="text" id="outputAttributeEffectName${tradeIndex}_${attributeModifierIndex}">
+        
+        <label for="outputAttributeEffectSlot${tradeIndex}_${attributeModifierIndex}">Emplacement :</label>
+        <select id="outputAttributeEffectSlot${tradeIndex}_${attributeModifierIndex}">
+            <option value="any">Any</option>
+            <option value="mainhand">Mainhand</option>
+            <option value="offhand">Offhand</option>
+            <option value="head">Head</option>
+            <option value="chest">Chest</option>
+            <option value="legs">Legs</option>
+            <option value="feet">Feet</option>
+        </select>
+        
+        <label for="outputAttributeEffectAmount${tradeIndex}_${attributeModifierIndex}">Montant :</label>
+        <select id="outputAttributeEffectAmount${tradeIndex}_${attributeModifierIndex}">
+            <option value="0">+/- amount</option>
+            <option value="1">+/- amount (additive)</option>
+            <option value="2">+/- amount (multiplicative)</option>
+        </select>
+        <input type="number" id="outputAttributeEffectAmountNumber${tradeCount}_${attributeModifierIndex}" value="1"><br>
+        
+        <button class="delete-button" onclick="removeAttributeModifier(${tradeIndex}, ${attributeModifierIndex})">Supprimer cet attribut modificateur</button><br><hr>
+    `;
+
+    attributeModifiersContainer.appendChild(attributeModifierDiv);
+}
+
+
+function removeAttributeModifier(tradeIndex, attributeModifierIndex) {
+    const attributeModifierDiv = document.getElementById(`attributeModifier${tradeIndex}_${attributeModifierIndex}`);
+    attributeModifierDiv.remove();
 }
 
 function addTrade() {
@@ -126,7 +189,13 @@ function addTrade() {
                 <!-- Enchantments will be added here -->
                 </div>
                 <button onclick="addEnchantment(${tradeCount})">Ajouter un enchantement</button><br><br><hr>
-                <button onclick="removeTrade(${tradeCount})">Supprimer cet Échange</button><br><br>
+
+                <div class="enchantment-container" id="attributeModifiersContainer${tradeCount}">
+                <!-- Enchantments will be added here -->
+                </div>
+                <button onclick="addAttributeModifier(${tradeCount})">Ajouter un Attribute Modifier</button><br><br><hr>
+
+                <button class="delete-button" onclick="removeTrade(${tradeCount})">Supprimer cet Échange</button><br><br>
             </div>
         `;
         tradesContainer.appendChild(tradeDiv);
@@ -223,6 +292,58 @@ function generateCommand() {
                     command += `],`;
                 }
 
+                const attributeModifiersContainer = document.querySelectorAll(`#attributeModifiersContainer${i} div`);
+                const attributeModifiers = [];
+
+                attributeModifiersContainer.forEach((attributeModifierDiv, index) => {
+                    const attributeName = document.getElementById(`outputAttributeEffect${i}_${index + 1}`).value;
+                    const attributeNameName = document.getElementById(`outputAttributeEffectName${i}_${index + 1}`).value;
+                    const attributeSlot = document.getElementById(`outputAttributeEffectSlot${i}_${index + 1}`).value;
+                    const attributeAmount = document.getElementById(`outputAttributeEffectAmount${i}_${index + 1}`).value;
+                    const attributeAmountNumber = document.getElementById(`outputAttributeEffectAmountNumber${i}_${index + 1}`).value;
+
+                    if (attributeName) {
+                        const uuid1 = generateUniqueUUID();
+                        const uuid2 = generateUniqueUUID();
+                        const uuid3 = generateUniqueUUID();
+                        const uuid4 = generateUniqueUUID();
+
+                        const attributeModifier = {
+                            AttributeName: `generic.${attributeName}`,
+                            Name: attributeNameName,
+                            Slot: attributeSlot,
+                            Amount: attributeAmountNumber,
+                            Operation: attributeAmount,
+                            UUID: `[I;${uuid1},${uuid2},${uuid3},${uuid4}]`,
+                        };
+
+                        attributeModifiers.push(attributeModifier);
+                    }
+                });
+
+                if (attributeModifiers.length > 0) {
+                    command += "AttributeModifiers:[";
+
+                    attributeModifiers.forEach((attributeModifier) => {
+                        command += `{AttributeName:"${attributeModifier.AttributeName}",`;
+
+                        if (attributeModifier.Name != "") {
+                            command += `Name:"${attributeModifier.Name}",`
+                        } else {
+                            command += `Name:"${attributeModifier.AttributeName}",`
+                        }
+
+                        if (attributeModifier.Slot != 'any') {
+                            command += `Slot:"${attributeModifier.Slot}",`;
+                        }
+                        command += `Amount:${attributeModifier.Amount},Operation:${attributeModifier.Operation},UUID:${attributeModifier.UUID}},`;
+                    });
+
+                    command = command.replace(/,\s*$/, ''); // Supprimez la virgule finale
+
+                    command += "],";
+                }
+
                 if (outputItemCustomModelData) {
                     command += `CustomModelData:${outputItemCustomModelData},`;
                 }
@@ -269,6 +390,9 @@ function generateCommand() {
     document.getElementById("commandResult").value = command;
 }
 
+function generateUniqueUUID() {
+    return Math.floor(Math.random() * 1000000000 + 1000000000); // Génère un nombre unique entre 1000000000 et 1999999999
+}
 
 function copyCommand() {
     const commandResult = document.getElementById("commandResult");

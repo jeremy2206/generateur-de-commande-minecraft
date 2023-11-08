@@ -135,6 +135,24 @@ textarea {
 }
 
 /* ---------------------------------------------------------------------------------- */
+.delete-button {
+    background-color: #ff0000;
+    color: #fff;
+}
+
+.delete-button:hover {
+    background-color: #cc0000;
+}
+
+.generate-button {
+    background-color: #009900;
+    color: #fff;
+}
+
+.generate-button:hover {
+    background-color: #006600; 
+}
+
 .spawn-coordinates > label {
     display: inline-block;
     vertical-align: top;
