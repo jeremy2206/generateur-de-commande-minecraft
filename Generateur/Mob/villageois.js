@@ -2,7 +2,7 @@ let tradeCount = 0;
 const maxTrades = 10;
 
 function addEnchantment(tradeIndex) {
-    const outputeItemEnchantmentContainer = document.getElementById(`enchantmentContainer${tradeCount}`);
+    const outputeItemEnchantmentContainer = document.getElementById(`enchantmentContainer${tradeIndex}`);
     const enchantmentDiv = document.createElement("div");
     const enchantmentIndex = outputeItemEnchantmentContainer.childElementCount + 1;
     enchantmentDiv.id = `enchantment${tradeIndex}_${enchantmentIndex}`;
