@@ -25,16 +25,21 @@
             <input type="text" id="spawnY">
             <label for="spawnZ">Z :</label>
             <input type="text" id="spawnZ">
-        </div> 
-
+        </div><hr><br>
+        
+        <label>Nom du texte :</label>
         <div class="output-item-color-container">
             <input type="text" id="CustomName" placeholder="Nom du texte"><br>
-            <input type="color" id="CustomNameColor" class="name-color" value="#ffffff"><br>
-        </div>
+            <input type="color" id="CustomNameColor" class="name-color" value="#ffffff">
+        </div><hr><br><br>
 
         <button class="generate-button" onclick="generateCommand()">Générer la Commande</button>
         <textarea id="commandResult" readonly></textarea>
-        <button class="generate-button" onclick="copyCommand()">Copier la Commande</button>
+        <button class="generate-button" onclick="copyCommand()">Copier la Commande</button><hr><br><br>
+
+        <label>Commande pour supprimer <br>le porte armure le plus proche :</label>
+        <textarea id="commandBonus" readonly>/kill @e[type=minecraft:armor_stand,sort=nearest,limit=1]</textarea>
+        <button class="generate-button" onclick="copyCommandBonus()">Copier la Commande</button>
 
     </div>
     <script src="armor-stand-floating-text.js"></script>

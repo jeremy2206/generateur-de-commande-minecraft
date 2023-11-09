@@ -176,8 +176,11 @@ function addTrade() {
                 <label for="outputItemCustomModelData${tradeCount}">Custom Model Data :</label>
                 <input type="text" id="outputItemCustomModelData${tradeCount}" placeholder="0"><br><hr>
 
-                <label for="outputItemUnbreakable${tradeCount}" class="unbreakable-container">Unbreakable :</label>
-                <input type="checkbox" id="outputItemUnbreakable${tradeCount}" class="unbreakable-checkbox"><br><hr>
+                <label for="outputItemUnbreakable${tradeCount}">Unbreakable :</label>
+                    <select id="outputItemUnbreakable${tradeCount}">
+                        <option value="0">Non</option>
+                        <option value="1">Oui</option>
+                    </select><hr><br>
 
                 <label for="outputItemCanDestroy${tradeCount}" class="output-item-container">Can Destroy :</label>
                 <input type="text" id="outputItemCanDestroy${tradeCount}" placeholder="ex : stone,dirt"><br>
@@ -234,7 +237,7 @@ function generateCommand() {
         const outputItemNameColor = document.getElementById(`outputItemNameColor${i}`).value;
         const outputItemLoreColor = document.getElementById(`outputItemLoreColor${i}`).value;
         const outputItemCustomModelData = document.getElementById(`outputItemCustomModelData${i}`).value;
-        const outputItemUnbreakable = document.getElementById(`outputItemUnbreakable${i}`).checked;
+        const outputItemUnbreakable = document.getElementById(`outputItemUnbreakable${i}`).value;
         const outputItemCanDestroy = document.getElementById(`outputItemCanDestroy${i}`).value;
         const outputItemCanPlaceOn = document.getElementById(`outputItemCanPlaceOn${i}`).value;
         const rewardExp = document.getElementById(`rewardExp${i}`).checked;
@@ -252,14 +255,14 @@ function generateCommand() {
             command += `buyB:{id:"${inputItem2}",Count:${inputItemAmount2}},`;
         }
 
-        if (outputItem || outputItemName || outputItemLore || outputeItemEnchantmentContainer.length > 0 || outputItemCustomModelData !== "0" || outputItemUnbreakable || outputItemCanDestroy || outputItemCanPlaceOn) {
+        if (outputItem || outputItemName || outputItemLore || outputeItemEnchantmentContainer.length > 0 || outputItemCustomModelData !== "0" || outputItemUnbreakable !== "0" || outputItemCanDestroy || outputItemCanPlaceOn) {
             command += `sell:{`;
 
             if (outputItem) {
                 command += `id:"${outputItem}",Count:${outputItemAmount},`;
             }
 
-            if (outputItemName || outputItemLore || outputeItemEnchantmentContainer.length > 0 || outputItemCustomModelData !== "0" || outputItemUnbreakable || outputItemCanDestroy || outputItemCanPlaceOn || rewardExp) {
+            if (outputItemName || outputItemLore || outputeItemEnchantmentContainer.length > 0 || outputItemCustomModelData !== "0" || outputItemUnbreakable !== "0" || outputItemCanDestroy || outputItemCanPlaceOn || rewardExp) {
                 command += `tag:{`;
 
                 if (outputItemName) {
@@ -348,7 +351,7 @@ function generateCommand() {
                     command += `CustomModelData:${outputItemCustomModelData},`;
                 }
 
-                if (outputItemUnbreakable) {
+                if (outputItemUnbreakable != 0) {
                     command += `Unbreakable:1b,`;
                 }
 

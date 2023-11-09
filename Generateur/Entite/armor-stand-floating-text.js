@@ -18,3 +18,10 @@ function copyCommand() {
     document.execCommand("copy");
     alert("Commande copiée !");
 }
+
+function copyCommandBonus() {
+    const commandResult = document.getElementById("commandBonus");
+    commandResult.select();
+    document.execCommand("copy");
+    alert("Commande copiée !");
+}

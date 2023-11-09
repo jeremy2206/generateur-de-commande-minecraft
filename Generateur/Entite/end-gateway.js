@@ -1,27 +1,15 @@
 function generateCommand() {
-    const xCoord = document.getElementById("xCoord").value;
-    const yCoord = document.getElementById("yCoord").value;
-    const zCoord = document.getElementById("zCoord").value;
+    const spawnType = document.getElementById("spawnType").value;
+    const spawnX = document.getElementById("spawnX").value;
+    const spawnY = document.getElementById("spawnY").value;
+    const spawnZ = document.getElementById("spawnZ").value;
     const age = document.getElementById("age").value;
     const exactTeleport = document.getElementById("exactTeleport").value;
     const exitX = document.getElementById("exitX").value;
     const exitY = document.getElementById("exitY").value;
     const exitZ = document.getElementById("exitZ").value;
-    const coordType = document.getElementById("coordType").checked ? "~" : "";
 
-    function formatCoord(coord) {
-        if (coord !== "") {
-            return coord.startsWith("~") ? `${coordType}${coord}` : coordType + parseInt(coord);
-        } else {
-            return coordType + "0";
-        }
-    }
-
-    const xCoordFormatted = formatCoord(xCoord);
-    const yCoordFormatted = formatCoord(yCoord);
-    const zCoordFormatted = formatCoord(zCoord);
-
-    let command = `/setblock ${xCoordFormatted} ${yCoordFormatted} ${zCoordFormatted} minecraft:end_gateway{`;
+    let command = `/setblock ${spawnType === 'relative' ? `~${spawnX} ~${spawnY} ~${spawnZ}` : `${spawnX} ${spawnY} ${spawnZ}`} minecraft:end_gateway{`;
 
     if (age) {
         command += `Age:${age}, `;
