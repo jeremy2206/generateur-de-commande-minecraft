@@ -8,6 +8,10 @@
     background-image: url('IMG/background/background-end-gateway.jpg');
 }
 
+.bodyarmor-stand-floating-text {
+    background-image: url('IMG/background/background-armor-stand-floating-text.png');
+}
+
 
 body {
     font-family: Arial, sans-serif;
@@ -270,4 +274,4 @@ textarea {
 
 .villageois {background-image: url('IMG/logo/villager.webp'); background-size: cover;}
 .end-gateway {background-image: url('IMG/logo/end-gateway.webp'); background-size: cover;}
-.texte-flotant {background-image: url('IMG/logo/armor-stand.webp'); background-size: cover;}
+.armor-stand-floating-text {background-image: url('IMG/logo/armor-stand.webp'); background-size: cover;}

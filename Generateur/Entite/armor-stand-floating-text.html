@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../../style.css">
+</head>
+<body class="bodyarmor-stand-floating-text">
+    <div class="navbar">
+        <a href="../../index.html">Menu</a>
+    </div><br>
+    
+    <div class="container">
+        <h1>Generateur <br>de texte flottant<br>via porte armures</h1>
+        <label for="villagerName">Fait pour la 1.18.2</label><br>
+
+        
+        <div class="spawn-coordinates">
+            <label for="spawnType">Coordonnées :</label>
+            <select id="spawnType">
+                <option value="relative">Relative (~)</option>
+                <option value="absolute">Absolue</option>
+            </select><br>
+            <label for="spawnX">X :</label>
+            <input type="text" id="spawnX">
+            <label for="spawnY">Y :</label>
+            <input type="text" id="spawnY">
+            <label for="spawnZ">Z :</label>
+            <input type="text" id="spawnZ">
+        </div> 
+
+        <div class="output-item-color-container">
+            <input type="text" id="CustomName" placeholder="Nom du texte"><br>
+            <input type="color" id="CustomNameColor" class="name-color" value="#ffffff"><br>
+        </div>
+
+        <button class="generate-button" onclick="generateCommand()">Générer la Commande</button>
+        <textarea id="commandResult" readonly></textarea>
+        <button class="generate-button" onclick="copyCommand()">Copier la Commande</button>
+
+    </div>
+    <script src="armor-stand-floating-text.js"></script>
+</body>
+</html>
