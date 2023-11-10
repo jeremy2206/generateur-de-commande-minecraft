@@ -3,52 +3,52 @@
 <head>
     <link rel="stylesheet" type="text/css" href="../../style.css">
 </head>
-<body class="bodyend-gateway">
-    <div class="navbar">
-        <a href="../../index.html">Menu</a>
-    </div><br>
-    
-    <div class="container">
-        <h1>Generateur <br>d'End Gateway</h1>
-        <label for="villagerName">Fait pour la 1.18.2</label><br>
+    <body class="bodyend-gateway">
+        <div class="navbar">
+            <a href="../../index.html">Menu</a>
+        </div><br>
+        
+        <div class="container">
+            <h1>Generateur <br>d'End Gateway</h1>
+            <label>Fait pour la 1.18.2</label><br>
 
-        <div class="spawn-coordinates">
-            <label for="spawnType">Coordonnées :</label>
-            <select id="spawnType">
-                <option value="relative">Relative (~)</option>
-                <option value="absolute">Absolue</option>
-            </select><br>
-            <label for="spawnX">X :</label>
-            <input type="text" id="spawnX">
-            <label for="spawnY">Y :</label>
-            <input type="text" id="spawnY">
-            <label for="spawnZ">Z :</label>
-            <input type="text" id="spawnZ">
-        </div><hr><br>
+            <div class="spawn-coordinates">
+                <label for="spawnType">Coordonnées :</label>
+                <select id="spawnType">
+                    <option value="relative">Relative (~)</option>
+                    <option value="absolute">Absolue</option>
+                </select><br>
+                <label for="spawnX">X :</label>
+                <input type="text" id="spawnX">
+                <label for="spawnY">Y :</label>
+                <input type="text" id="spawnY">
+                <label for="spawnZ">Z :</label>
+                <input type="text" id="spawnZ">
+            </div><hr><br>
 
-        <label for="age">Age :</label>
-        <input type="number" id="age" placeholder="Âge"><hr><br>
+            <label for="age">Age :</label>
+            <input type="number" id="age" placeholder="Âge"><hr><br>
 
-        <label for="exactTeleport">ExactTeleport :</label>
-        <select id="exactTeleport">
-            <option value="1">Oui</option>
-            <option value="0">Non</option>
-        </select><hr><br>
+            <label for="exactTeleport">ExactTeleport :</label>
+            <select id="exactTeleport">
+                <option value="1">Oui</option>
+                <option value="0">Non</option>
+            </select><hr><br>
 
-        <label for="exitX">Coordonnée de Sortie X :</label>
-        <input type="number" id="exitX" placeholder="X de Sortie">
+            <label for="exitX">Coordonnée de Sortie X :</label>
+            <input type="number" id="exitX" placeholder="X de Sortie">
 
-        <label for="exitY">Coordonnée de Sortie Y :</label>
-        <input type="number" id="exitY" placeholder="Y de Sortie">
+            <label for="exitY">Coordonnée de Sortie Y :</label>
+            <input type="number" id="exitY" placeholder="Y de Sortie">
 
-        <label for="exitZ">Coordonnée de Sortie Z :</label>
-        <input type="number" id="exitZ" placeholder="Z de Sortie"><hr><br><br>
+            <label for="exitZ">Coordonnée de Sortie Z :</label>
+            <input type="number" id="exitZ" placeholder="Z de Sortie"><hr><br><br>
 
-        <button class="generate-button" onclick="generateCommand()">Générer la Commande</button>
-        <textarea id="commandResult" readonly></textarea>
-        <button class="generate-button" onclick="copyCommand()">Copier la Commande</button>
+            <button class="generate-button" onclick="generateCommand()">Générer la Commande</button>
+            <textarea id="commandResult" readonly></textarea>
+            <button class="generate-button" onclick="copyCommand()">Copier la Commande</button>
 
-    </div>
-    <script src="end-gateway.js"></script>
-</body>
+        </div>
+        <script src="end-gateway.js"></script>
+    </body>
 </html>
