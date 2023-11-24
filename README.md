@@ -41,3 +41,13 @@ Un générateur de commandes minecraft avec des choses en plus que ceux connus
 - Age
 - ExactTeleport
 - Exit Coord
+
+## Generateur de textes flottant via porte armures
+
+### Armor Stand Settings
+- Spawn coord (relative/absolute)
+- text name
+- text color
+
+### Other
+- destroy nearest armor stand 
