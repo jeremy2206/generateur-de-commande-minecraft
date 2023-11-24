@@ -42,7 +42,7 @@ Un générateur de commandes minecraft avec des choses en plus que ceux connus
 - ExactTeleport
 - Exit Coord
 
-## Generateur de textes flottant via porte armures
+## Generateur de textes flottant via porte armures (testé en 1.18.2)
 
 ### Armor Stand Settings
 - Spawn coord (relative/absolute)
