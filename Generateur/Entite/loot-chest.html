@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Générateur de table de loot pour les coffres</title>
+    <link rel="stylesheet" type="text/css" href="../../style.css">
+</head>
+    <body class="bodyloot-chest">
+        <div class="navbar">
+            <a href="../../index.html">Menu</a>
+        </div><br>
+
+
+        <div class="container">
+            <h1>Générateur de table de loot pour les coffres</h1>
+            <label for="villagerName">Fait pour la 1.18.2 </label><br>
+
+            <label for="structure">Structure :</label>
+            <select id="structure">
+                <option value="ancient_city">ancient_city</option>
+                <option value="ancient_city_ice_box">ancient_city_ice_box</option>
+                <option value="abandoned_mineshaft">abandoned_mineshaft</option>
+                <option value="buried_treasure">buried_treasure</option>
+                <option value="bastion_bridge">bastion_bridge</option>
+                <option value="bastion_hoglin_stable">bastion_hoglin_stable</option>
+                <option value="bastion_treasure">bastion_treasure</option>
+                <option value="bastion_other">bastion_other</option>
+                <option value="desert_pyramid">desert_pyramid</option>
+                <option value="end_city_treasure">end_city_treasure</option>
+                <option value="igloo_chest">igloo_chest</option>
+                <option value="jungle_temple">jungle_temple</option>
+                <option value="jungle_temple_dispenser">jungle_temple_dispenser</option>
+                <option value="nether_bridge">nether_bridge</option>
+                <option value="pillager_outpost">pillager_outpost</option>
+                <option value="shipwreck_map">shipwreck_map</option>
+                <option value="shipwreck_supply">shipwreck_supply</option>
+                <option value="shipwreck_treasure">shipwreck_treasure</option>
+                <option value="simple_dungeon">simple_dungeon</option>
+                <option value="spawn_bonus_chest">spawn_bonus_chest</option>
+                <option value="stronghold_corridor">stronghold_corridor</option>
+                <option value="stronghold_crossing">stronghold_crossing</option>
+                <option value="stronghold_library">stronghold_library</option>
+                <option value="spawn_bonus_chest">spawn_bonus_chest</option>
+                <option value="underwater_ruin_big">underwater_ruin_big</option>
+                <option value="underwater_ruin_small">underwater_ruin_small</option>
+                <option value="village/village_armorer">village_armorer</option>
+                <option value="village/village_butcher">village_butcher</option>
+                <option value="village/village_cartographer">village_cartographer</option>
+                <option value="village/village_desert_house">village_desert_house</option>
+                <option value="village/village_fisher">village_fisher</option>
+                <option value="village/village_fletcher">village_fletcher</option>
+                <option value="village/village_mason">village_mason</option>
+                <option value="village/village_plains_house">village_plains_house</option>
+                <option value="village/village_savanna_house">village_savanna_house</option>
+                <option value="village/village_shepherd">village_shepherd</option>
+                <option value="village/village_snowy_house">village_snowy_house</option>
+                <option value="village/village_taiga_house">village_taiga_house</option>
+                <option value="village/village_tannery">village_tannery</option>
+                <option value="village/village_temple">village_temple</option>
+                <option value="village/village_toolsmith">village_toolsmith</option>
+                <option value="village/village_weaponsmith">village_weaponsmith</option>
+            </select><br><hr>
+
+            <label for="rotation">Rotation :</label>
+            <select id="rotation">
+                <option value="east">Est (east)</option>
+                <option value="north">Nord (north)</option>
+                <option value="south">Sud (south)</option>
+                <option value="west">Ouest (west)</option>
+            </select><br>
+
+            <div class="spawn-coordinates">
+                <label for="spawnType">Coordonnées :</label>
+                <select id="spawnType">
+                    <option value="relative">Relative (~)</option>
+                    <option value="absolute">Absolue</option>
+                </select><br>
+                <label for="spawnX">X :</label>
+                <input type="text" id="spawnX">
+                <label for="spawnY">Y :</label>
+                <input type="text" id="spawnY">
+                <label for="spawnZ">Z :</label>
+                <input type="text" id="spawnZ">
+            </div><hr><br>
+
+
+            <button class="generate-button" onclick="generateCommand()">Générer la Commande</button><br><br>
+
+            <textarea id="commandResult" rows="8" cols="50" readonly></textarea><br><br>
+
+            <button class="generate-button" onclick="copyCommand()">Copier la Commande</button>
+        </div>
+
+        <script src="loot-chest.js"></script>
+    </body>
+</html>
