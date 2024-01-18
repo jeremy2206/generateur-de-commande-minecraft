@@ -51,3 +51,10 @@ Un générateur de commandes minecraft avec des choses en plus que ceux connus
 
 ### Other
 - destroy nearest armor stand 
+
+## Générateur de table de loot pour les coffres (testé en 1.18.2 mais contient ce qu'il faut pour la 1.19) 
+
+### Chest settings
+- Spawn coord (relative/absolute)
+- Rotation
+- structure loot
