@@ -199,7 +199,7 @@ function addTrade() {
                 </div>
                 <button onclick="addAttributeModifier(${tradeCount})">Ajouter un Attribute Modifier</button><br><br><hr>
 
-                <label for="outputItemJson${tradeCount}">Item de Sortie :</label>
+                <label for="outputItemJson${tradeCount}">Autre JSON :</label>
                 <input type="text" id="outputItemJson${tradeCount}" placeholder="ex : pages:[{text:Test}'],title:Test,author:Jerem2206"><br><hr>
 
                 <button class="delete-button" onclick="removeTrade(${tradeCount})">Supprimer cet Échange</button><br><br>
