@@ -29,6 +29,7 @@ function addEnchantment(tradeIndex) {
             <option value="looting">Looting</option>
             <option value="loyalty">Loyalty</option>
             <option value="luck_of_the_sea">Luck of the Sea</option>
+            <option value="lure">Lure</option>
             <option value="mending">Mending</option>
             <option value="multishot">Multishot</option>
             <option value="piercing">Piercing</option>
@@ -198,6 +199,9 @@ function addTrade() {
                 </div>
                 <button onclick="addAttributeModifier(${tradeCount})">Ajouter un Attribute Modifier</button><br><br><hr>
 
+                <label for="outputItemJson${tradeCount}">Item de Sortie :</label>
+                <input type="text" id="outputItemJson${tradeCount}" placeholder="ex : pages:[{text:Test}'],title:Test,author:Jerem2206"><br><hr>
+
                 <button class="delete-button" onclick="removeTrade(${tradeCount})">Supprimer cet Échange</button><br><br>
             </div>
         `;
@@ -244,6 +248,7 @@ function generateCommand() {
         const maxUses = document.getElementById(`maxUses${i}`).value;
         const outputeItemEnchantmentContainer = document.querySelectorAll(`#enchantmentContainer${i} select`);
         const outpoutItemEnchantmentLevels = document.querySelectorAll(`#enchantmentContainer${i} input`);
+        const outputItemJson = document.getElementById(`outputItemJson${i}`).value;
 
         command += "{";
 
@@ -353,6 +358,10 @@ function generateCommand() {
 
                 if (outputItemUnbreakable != 0) {
                     command += `Unbreakable:1b,`;
+                }
+
+                if (outputItemJson) {
+                    command += `${outputItemJson},`;
                 }
 
                 if (outputItemCanDestroy) {
