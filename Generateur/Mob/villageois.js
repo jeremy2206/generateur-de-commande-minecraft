@@ -1,5 +1,5 @@
 let tradeCount = 0;
-const maxTrades = 10;
+const maxTrades = 27;
 
 function addEnchantment(tradeIndex) {
     const outputeItemEnchantmentContainer = document.getElementById(`enchantmentContainer${tradeIndex}`);
