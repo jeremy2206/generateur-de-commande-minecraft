@@ -11,7 +11,7 @@ Un générateur de commandes minecraft avec des choses en plus que ceux connus
 ## Generateur de textes flottant via porte armures
 ### 1.18-1.18.2
 
-## Générateur de table de loot pour les coffres (testé en 1.18.2 mais contient ce qu'il faut pour la 1.19) 
+## Générateur de table de loot pour les coffres
 ### 1.18-1.18.2
 ### 1.19-1.19.4
 
