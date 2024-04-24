@@ -46,7 +46,7 @@ function addEnchantment(tradeIndex) {
             <option value="smite">Smite</option>
             <option value="soul_speed">Soul Speed</option>
             <option value="sweeping">Sweeping</option>
-            <option value="swift_sneek">Swift Sneak</option>
+            <option value="swift-sneak">Swift Sneak</option>
             <option value="thorns">Thorns</option>
             <option value="unbreaking">Unbreaking</option>
         </select>
@@ -81,21 +81,11 @@ function addAttributeModifier(tradeIndex) {
             <option value="armor_toughness">Armor Toughness</option>
             <option value="attack_damage">Attack Damage</option>
             <option value="attack_speed">Attack Speed</option>
-            <option value="block_break_speed">Block Break Speed</option>
-            <option value="block_interaction_range">Block Interaction Range</option>
-            <option value="entity_interaction_range">Entity Interaction Range</option>
-            <option value="fall_damage_multiplier">Fall Damage Multiplier</option>
             <option value="follow_range">Follow Range</option>
-            <option value="gravity">Gravity</option>
-            <option value="jump_strength">Jump Strength</option>
             <option value="knockback_resistance">Knockback Resistance</option>
             <option value="luck">Luck</option>
-            <option value="max_absorption">Max Absorption</option>
             <option value="max_health">Max Health</option>
             <option value="movement_speed">Movement Speed</option>
-            <option value="safe_fall_distance">Safe Fall Distance</option>
-            <option value="scale">Scale</option>
-            <option value="step_height">Step Height</option>
         </select>
         
         <label for="outputAttributeEffectName${tradeIndex}_${attributeModifierIndex}">Nom de l'attribut :</label>
@@ -104,10 +94,8 @@ function addAttributeModifier(tradeIndex) {
         <label for="outputAttributeEffectSlot${tradeIndex}_${attributeModifierIndex}">Emplacement :</label>
         <select id="outputAttributeEffectSlot${tradeIndex}_${attributeModifierIndex}">
             <option value="any">Any</option>
-            <option value="hand">Hand</option>
             <option value="mainhand">Mainhand</option>
             <option value="offhand">Offhand</option>
-            <option value="armor">Armor</option>
             <option value="head">Head</option>
             <option value="chest">Chest</option>
             <option value="legs">Legs</option>
@@ -116,9 +104,9 @@ function addAttributeModifier(tradeIndex) {
         
         <label for="outputAttributeEffectAmount${tradeIndex}_${attributeModifierIndex}">Montant :</label>
         <select id="outputAttributeEffectAmount${tradeIndex}_${attributeModifierIndex}">
-            <option value="add_value">Add Value</option>
-            <option value="add_multiplied_base">Add Multiplied Base</option>
-            <option value="add_multiplied_total">Add Multiplied Total</option>
+            <option value="0">+/- amount (amount)</option>
+            <option value="1">+/- amount (pourcentage)</option>
+            <option value="2">+/- amount (multiplicative)</option>
         </select>
         <input type="number" id="outputAttributeEffectAmountNumber${tradeCount}_${attributeModifierIndex}" value="1"><br>
         
@@ -263,59 +251,44 @@ function generateCommand() {
 
         command += "{";
 
-        if (rewardExp) {
-            command += `rewardExp:0b,`;
-        } else {
-            command += `rewardExp:1b,`;
-        }
-
-        if (maxUses) {
-            command += `maxUses:${maxUses},`;
-        } else {
-            command += `maxUses:9999999,`;
-        }
-
         if (inputItem) {
-            command += `buy:{id:"${inputItem}",count:${inputItemAmount}},`;
+            command += `buy:{id:"${inputItem}",Count:${inputItemAmount}},`;
         }
 
         if (inputItem2) {
-            command += `buyB:{id:"${inputItem2}",count:${inputItemAmount2}},`;
+            command += `buyB:{id:"${inputItem2}",Count:${inputItemAmount2}},`;
         }
 
         if (outputItem || outputItemName || outputItemLore || outputeItemEnchantmentContainer.length > 0 || outputItemCustomModelData !== "0" || outputItemUnbreakable !== "0" || outputItemCanDestroy || outputItemCanPlaceOn) {
             command += `sell:{`;
 
             if (outputItem) {
-                command += `id:"${outputItem}",count:${outputItemAmount},components:{`;
+                command += `id:"${outputItem}",Count:${outputItemAmount},`;
             }
 
             if (outputItemName || outputItemLore || outputeItemEnchantmentContainer.length > 0 || outputItemCustomModelData !== "0" || outputItemUnbreakable !== "0" || outputItemCanDestroy || outputItemCanPlaceOn || rewardExp) {
-                command += `"minecraft:custom_name":'{`;
+                command += `tag:{`;
 
                 if (outputItemName) {
-                    command += `"text":"${outputItemName}","color":"${outputItemNameColor}"`;
+                    command += `display:{Name:'{"text":"${outputItemName}","color":"${outputItemNameColor}"}'`;
 
                     if (outputItemLore) {
-                        command += `}',"minecraft:lore":['{`
-                        command += `"text":"${outputItemLore}","color":"${outputItemLoreColor}"}'],`;
-                        
-                    } else {
-                        command += `}',`;
+                        command += `,`
+                        command += `Lore:['{"text":"${outputItemLore}","color":"${outputItemLoreColor}"}']`;
                     }
-                } else {
-                    command += `}',`;
+
+                    command += `},`;
                 }
 
                 if (outputeItemEnchantmentContainer.length > 0) {
-                    command += `"minecraft:enchantments":{`;
+                    command += `Enchantments:[`;
 
                     outputeItemEnchantmentContainer.forEach((outputItemEnchantmentSelect, index) => {
                         const enchantment = outputItemEnchantmentSelect.value;
                         const level = outpoutItemEnchantmentLevels[index].value;
 
                         if (enchantment) {
-                            command += `levels:{"${enchantment}":${level}},`;
+                            command += `{id:"minecraft:${enchantment}",lvl:${level}b},`;
                         }
                     });
 
@@ -323,7 +296,7 @@ function generateCommand() {
                         command = command.slice(0, -1);
                     }
 
-                    command += `},`;
+                    command += `],`;
                 }
 
                 const attributeModifiersContainer = document.querySelectorAll(`#attributeModifiersContainer${i} div`);
@@ -356,64 +329,70 @@ function generateCommand() {
                 });
 
                 if (attributeModifiers.length > 0) {
-                    command += `"minecraft:attribute_modifiers":[{`;
+                    command += "AttributeModifiers:[";
 
                     attributeModifiers.forEach((attributeModifier) => {
-                        command += `type:"${attributeModifier.AttributeName}",`;
+                        command += `{AttributeName:"${attributeModifier.AttributeName}",`;
 
                         if (attributeModifier.Name != "") {
-                            command += `name:"${attributeModifier.Name}",`
+                            command += `Name:"${attributeModifier.Name}",`
                         } else {
-                            command += `name:"${attributeModifier.AttributeName}",`
+                            command += `Name:"${attributeModifier.AttributeName}",`
                         }
-                        command += `slot:"${attributeModifier.Slot}",amount:${attributeModifier.Amount},operation:"${attributeModifier.Operation}",uuid:${attributeModifier.UUID},`;
+
+                        if (attributeModifier.Slot != 'any') {
+                            command += `Slot:"${attributeModifier.Slot}",`;
+                        }
+                        command += `Amount:${attributeModifier.Amount},Operation:${attributeModifier.Operation},UUID:${attributeModifier.UUID}},`;
                     });
 
                     command = command.replace(/,\s*$/, ''); // Supprimez la virgule finale
 
-                    command += "}],";
+                    command += "],";
                 }
 
                 if (outputItemCustomModelData) {
-                    command += `"minecraft:custom_model_data":${outputItemCustomModelData},`;
+                    command += `CustomModelData:${outputItemCustomModelData},`;
                 }
 
                 if (outputItemUnbreakable != 0) {
-                    command += `"minecraft:unbreakable":{},`;
+                    command += `Unbreakable:1b,`;
                 }
 
                 if (outputItemJson) {
                     command += `${outputItemJson},`;
                 }
-                    
+
                 if (outputItemCanDestroy) {
-                    command += `"minecraft:can_break":{predicates:[`;
-                    const blocks = outputItemCanDestroy.split(",");
-                    blocks.forEach((block) => {
-                        command += `{blocks:"${block}"},`;
-                    });
-                    command = command.replace(/,\s*$/, ''); // Supprimez la virgule finale
-                    command += `]},`;
-                }
-                
-                if (outputItemCanPlaceOn) {
-                     command += `"minecraft:can_place_on":{predicates:[`;
-                
-                    const blocks = outputItemCanPlaceOn.split(",");
-                    blocks.forEach((block) => {
-                        command += `{blocks:"${block}"},`;
-                    });
-                    command = command.replace(/,\s*$/, ''); // Supprimez la virgule finale
-                    command += `]},`;
+                    command += `CanDestroy:[${outputItemCanDestroy}],`;
                 }
 
+                if (outputItemCanPlaceOn) {
+                    command += `CanPlaceOn:[${outputItemCanPlaceOn}],`;
+                }
+
+                if (rewardExp) {
+                    command += `rewardExp:0b,`;
+                } else {
+                    command += `rewardExp:1b,`;
+                }
+
+                if (maxUses) {
+                    command += `maxUses:${maxUses}`;
+                } else {
+                    command += `maxUses:9999999`;
+                }
+
+                command += `}`;
             }
-            command = command.replace(/,\s*$/, ''); 
+
             command += "},";
         }
+
         command = command.replace(/,\s*$/, '');
-        command += "}},";
+        command += "},";
     }
+
     command = command.replace(/,\s*$/, '');
     command += "]}}";
 

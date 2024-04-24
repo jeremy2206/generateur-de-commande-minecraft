@@ -45,7 +45,7 @@ function addEnchantment(tradeIndex) {
             <option value="silk_touch">Silk Touch</option>
             <option value="smite">Smite</option>
             <option value="soul_speed">Soul Speed</option>
-            <option value="sweeping">Sweeping Edge</option>
+            <option value="sweeping">Sweeping</option>
             <option value="thorns">Thorns</option>
             <option value="unbreaking">Unbreaking</option>
         </select>
