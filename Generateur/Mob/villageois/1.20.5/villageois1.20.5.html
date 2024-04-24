@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>[1.20.5] Générateur de Villageois</title>
+    <link rel="stylesheet" type="text/css" href="../../../../../style.css">
+</head>
+    <body class="bodyvillager">
+        <div class="navbar">
+            <a href="../../../../../index.html">Menu</a>
+        </div><br>
+
+
+        <div class="container">
+            <h1>Générateur de Villageois</h1>
+            <label for="villagerName">Fait pour la 1.20.5</label><br>
+            <label for="villagerName">Nom du Villageois :</label>
+            <input type="text" id="villagerName" value="Villager"><br>
+
+            <label for="biome">Biome :</label>
+            <select id="biome">
+                <option value="Plains">Plains</option>
+                <option value="Taiga">Taiga</option>
+                <option value="Savanna">Savanna</option>
+                <option value="Jungle">Jungle</option>
+                <option value="Desert">Desert</option>
+                <option value="Snow">Snow</option>
+                <option value="Swamp">Swamp</option>
+            </select><br>
+
+            <label for="profession">Profession :</label>
+            <select id="profession">
+                <option value="Farmer">Farmer</option>
+                <option value="Fisherman">Fisherman</option>
+                <option value="Shepherd">Shepherd</option>
+                <option value="Fletcher">Fletcher</option>
+                <option value="Librarian">Librarian</option>
+                <option value="Cartographer">Cartographer</option>
+                <option value="Cleric">Cleric</option>
+                <option value="Armorer">Armorer</option>
+                <option value="Weaponsmith">Weaponsmith</option>
+                <option value="Toolsmith">Toolsmith</option>
+                <option value="Butcher">Butcher</option>
+                <option value="Leatherworker">Leatherworker</option>
+                <option value="Mason">Mason</option>
+                <option value="Nitwit">Nitwit</option>
+            </select><br>
+
+            <label for="level">Niveau :</label>
+            <select id="level">
+                <option value="1">Novice (1)</option>
+                <option value="2">Apprentice (2)</option>
+                <option value="3">Journeyman (3)</option>
+                <option value="4">Expert (4)</option>
+                <option value="5">Master (5)</option>
+                <option value="99">No defaut trade (99)</option>
+            </select><hr><br>
+
+            <div class="checkbox-container">
+                <label for="invulnerable">Invulnerable :</label>
+                <input type="checkbox" id="invulnerable">
+            </div>
+            <div class="checkbox-container">
+                <label for="persistent">Persistent :</label>
+                <input type="checkbox" id="persistent" checked>
+            </div>
+            <div class="checkbox-container">
+                <label for="silent">Silent :</label>
+                <input type="checkbox" id="silent">
+            </div>
+            <div class="checkbox-container">
+                <label for="noAI">NoAI :</label>
+                <input type="checkbox" id="noAI">
+            </div>
+            <div class="checkbox-container">
+                <label for="glowing">Glowing :</label>
+                <input type="checkbox" id="glowing">
+            </div>
+            <div class="checkbox-container">
+                <label for="customnamevisible">CustomNameVisible :</label>
+                <input type="checkbox" id="customnamevisible">
+            </div>
+            <hr><br>
+
+            <div class="spawn-coordinates">
+                <label for="spawnType">Coordonnées :</label>
+                <select id="spawnType">
+                    <option value="relative">Relative (~)</option>
+                    <option value="absolute">Absolue</option>
+                </select><br>
+                <label for="spawnX">X :</label>
+                <input type="text" id="spawnX">
+                <label for="spawnY">Y :</label>
+                <input type="text" id="spawnY">
+                <label for="spawnZ">Z :</label>
+                <input type="text" id="spawnZ">
+                <label for="rotationY">Rotation Y (Horizontal) :</label>
+                <input type="number" id="rotationY" min="-360" max="360" value="0"><br>
+                <label for="rotationX">Rotation X (Vertical) :</label>
+                <input type="number" id="rotationX" min="-360" max="360" value="0"><br>   
+            </div><hr><br>
+
+            <h2>Échanges (Trades)</h2>
+            <div id="tradesContainer"></div><br>
+            <button onclick="addTrade()">Ajouter un Échange</button><br><br><hr>
+
+            <button class="generate-button" onclick="generateCommand()">Générer la Commande</button><br><br>
+
+            <textarea id="commandResult" rows="8" cols="50" readonly></textarea><br><br>
+
+            <button class="generate-button" onclick="copyCommand()">Copier la Commande</button>
+        </div>
+
+        <script src="villageois1.20.5.js"></script>
+    </body>
+</html>
