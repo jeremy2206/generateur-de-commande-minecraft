@@ -5,16 +5,16 @@ Un générateur de commandes minecraft avec des choses en plus que ceux connus
 ### 1.18-1.18.2
 ### 1.19-1.20.1
 ### 1.20.2-1.20.4
-### 1.20.5
+### 1.20.5-1.20.6
 
 ## Générateur d'End Gateway 
 ### 1.18-1.20.4
-### 1.20.5
+### 1.20.5-1.20.6
 
 ## Generateur de textes flottant via porte armures
-### 1.18-1.20.5
+### 1.18-1.20.6
 
 ## Générateur de table de loot pour les coffres
 ### 1.18-1.18.2
-### 1.19-1.20.5
+### 1.19-1.20.6
 

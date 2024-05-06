@@ -3,16 +3,15 @@
 <head>
     <link rel="stylesheet" type="text/css" href="../../../../style.css">
 </head>
-    <body class="bodyarmor-stand-floating-text">
+    <body class="bodyend-gateway">
         <div class="navbar">
             <a href="../../../../index.html">Menu</a>
         </div><br>
         
         <div class="container">
-            <h1>Generateur <br>de texte flottant<br>via porte armures</h1>
-            <label>Fait pour la 1.18-1.20.5</label><br>
+            <h1>Generateur <br>d'End Gateway</h1>
+            <label>Fait pour la 1.20.5-1.20.6</label><br>
 
-            
             <div class="spawn-coordinates">
                 <label for="spawnType">Coordonnées :</label>
                 <select id="spawnType">
@@ -26,22 +25,30 @@
                 <label for="spawnZ">Z :</label>
                 <input type="text" id="spawnZ">
             </div><hr><br>
-            
-            <label>Nom du texte :</label>
-            <div class="output-item-color-container">
-                <input type="text" id="CustomName" placeholder="Nom du texte"><br>
-                <input type="color" id="CustomNameColor" class="name-color" value="#ffffff">
-            </div><hr><br><br>
+
+            <label for="age">Age :</label>
+            <input type="number" id="age" placeholder="Âge"><hr><br>
+
+            <label for="exactTeleport">ExactTeleport :</label>
+            <select id="exactTeleport">
+                <option value="1">Oui</option>
+                <option value="0">Non</option>
+            </select><hr><br>
+
+            <label for="exitX">Coordonnée de Sortie X :</label>
+            <input type="number" id="exitX" placeholder="X de Sortie">
+
+            <label for="exitY">Coordonnée de Sortie Y :</label>
+            <input type="number" id="exitY" placeholder="Y de Sortie">
+
+            <label for="exitZ">Coordonnée de Sortie Z :</label>
+            <input type="number" id="exitZ" placeholder="Z de Sortie"><hr><br><br>
 
             <button class="generate-button" onclick="generateCommand()">Générer la Commande</button>
             <textarea id="commandResult" readonly></textarea>
-            <button class="generate-button" onclick="copyCommand()">Copier la Commande</button><hr><br><br>
-
-            <label>Commande pour supprimer <br>le porte armure le plus proche :</label>
-            <textarea id="commandBonus" readonly>/kill @e[type=minecraft:armor_stand,sort=nearest,limit=1]</textarea>
-            <button class="generate-button" onclick="copyCommandBonus()">Copier la Commande</button>
+            <button class="generate-button" onclick="copyCommand()">Copier la Commande</button>
 
         </div>
-        <script src="armor-stand-floating-text1.18-1.20.5.js"></script>
+        <script src="end-gateway1.20.5-1.20.6.js"></script>
     </body>
 </html>
