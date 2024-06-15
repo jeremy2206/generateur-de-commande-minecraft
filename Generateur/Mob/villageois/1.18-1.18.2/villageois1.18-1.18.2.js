@@ -12,10 +12,9 @@ function addEnchantment(tradeIndex) {
             <option value="">Aucun</option>
             <option value="aquatic_affinity">Aquatic Affinity</option>
             <option value="bane_of_arthropods">Bane of Arthropods</option>
+            <option value="binding_curse">Binding Curse</option>
             <option value="blast_protection">Blast Protection</option>
             <option value="channeling">Channeling</option>
-            <option value="binding_curse">Curse of Binding</option>
-            <option value="vanishing_curse">Curse of Vanishing</option>
             <option value="depth_strider">Depth Strider</option>
             <option value="efficiency">Efficiency</option>
             <option value="feather_falling">Feather Falling</option>
@@ -48,6 +47,7 @@ function addEnchantment(tradeIndex) {
             <option value="sweeping">Sweeping</option>
             <option value="thorns">Thorns</option>
             <option value="unbreaking">Unbreaking</option>
+            <option value="vanishing_curse">Vanishing Curse</option>
         </select>
         <label for="outputItemEnchantmentLevel${tradeIndex}_${enchantmentIndex}">Niveau d'enchantement :</label>
         <input type="number" id="outputItemEnchantmentLevel${tradeIndex}_${enchantmentIndex}" min="1" max="255">

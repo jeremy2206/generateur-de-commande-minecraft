@@ -14,7 +14,9 @@ function addEnchantment(tradeIndex) {
             <option value="bane_of_arthropods">Bane of Arthropods</option>
             <option value="binding_curse">Binding Curse</option>
             <option value="blast_protection">Blast Protection</option>
+            <option value="breach">Breach</option>
             <option value="channeling">Channeling</option>
+            <option value="density">Density</option>
             <option value="depth_strider">Depth Strider</option>
             <option value="efficiency">Efficiency</option>
             <option value="feather_falling">Feather Falling</option>
@@ -49,6 +51,7 @@ function addEnchantment(tradeIndex) {
             <option value="thorns">Thorns</option>
             <option value="unbreaking">Unbreaking</option>
             <option value="vanishing_curse">Vanishing Curse</option>
+            <option value="wind_burst">Wind burst</option>
         </select>
         <label for="outputItemEnchantmentLevel${tradeIndex}_${enchantmentIndex}">Niveau d'enchantement :</label>
         <input type="number" id="outputItemEnchantmentLevel${tradeIndex}_${enchantmentIndex}" min="1" max="255">
@@ -80,10 +83,13 @@ function addAttributeModifier(tradeIndex) {
             <option value="armor">Armor</option>
             <option value="armor_toughness">Armor Toughness</option>
             <option value="attack_damage">Attack Damage</option>
+            <option value="attack_knockback">Attack Knockback</option>
             <option value="attack_speed">Attack Speed</option>
             <option value="block_break_speed">Block Break Speed</option>
             <option value="block_interaction_range">Block Interaction Range</option>
+            <option value="burning_time">Burning Time</option>
             <option value="entity_interaction_range">Entity Interaction Range</option>
+            <option value="explosion_knockback_resistance">Explosion Knockback Resistance</option>
             <option value="fall_damage_multiplier">Fall Damage Multiplier</option>
             <option value="follow_range">Follow Range</option>
             <option value="gravity">Gravity</option>
@@ -92,14 +98,21 @@ function addAttributeModifier(tradeIndex) {
             <option value="luck">Luck</option>
             <option value="max_absorption">Max Absorption</option>
             <option value="max_health">Max Health</option>
+            <option value="mining_efficiency">Mining Efficiency</option>
+            <option value="movement_efficiency">Movement Efficiency</option>
             <option value="movement_speed">Movement Speed</option>
+            <option value="oxygen_bonus">Oxygen Bonus</option>
             <option value="safe_fall_distance">Safe Fall Distance</option>
             <option value="scale">Scale</option>
+            <option value="sneaking_speed">Sneaking Speedd</option>
+            <option value="submerged_mining_speed">Submerged Mining Speed</option>
+            <option value="sweeping_damage_ratio">Sweeping Damage Ratio</option>
             <option value="step_height">Step Height</option>
+            <option value="water_movement_efficiency">Water Movement Effciency</option>
         </select>
         
-        <label for="outputAttributeEffectName${tradeIndex}_${attributeModifierIndex}">Nom de l'attribut :</label>
-        <input type="text" id="outputAttributeEffectName${tradeIndex}_${attributeModifierIndex}">
+        <label for="outputAttributeEffectId${tradeIndex}_${attributeModifierIndex}">ID/Nom de l'attribut :</label>
+        <input type="text" id="outputAttributeEffectId${tradeIndex}_${attributeModifierIndex}">
         
         <label for="outputAttributeEffectSlot${tradeIndex}_${attributeModifierIndex}">Emplacement :</label>
         <select id="outputAttributeEffectSlot${tradeIndex}_${attributeModifierIndex}">
@@ -331,7 +344,7 @@ function generateCommand() {
 
                 attributeModifiersContainer.forEach((attributeModifierDiv, index) => {
                     const attributeName = document.getElementById(`outputAttributeEffect${i}_${index + 1}`).value;
-                    const attributeNameName = document.getElementById(`outputAttributeEffectName${i}_${index + 1}`).value;
+                    const attributeNameId = document.getElementById(`outputAttributeEffectId${i}_${index + 1}`).value;
                     const attributeSlot = document.getElementById(`outputAttributeEffectSlot${i}_${index + 1}`).value;
                     const attributeAmount = document.getElementById(`outputAttributeEffectAmount${i}_${index + 1}`).value;
                     const attributeAmountNumber = document.getElementById(`outputAttributeEffectAmountNumber${i}_${index + 1}`).value;
@@ -344,7 +357,7 @@ function generateCommand() {
 
                         const attributeModifier = {
                             AttributeName: `generic.${attributeName}`,
-                            Name: attributeNameName,
+                            Id: attributeNameId,
                             Slot: attributeSlot,
                             Amount: attributeAmountNumber,
                             Operation: attributeAmount,
@@ -361,10 +374,10 @@ function generateCommand() {
                     attributeModifiers.forEach((attributeModifier) => {
                         command += `type:"${attributeModifier.AttributeName}",`;
 
-                        if (attributeModifier.Name != "") {
-                            command += `name:"${attributeModifier.Name}",`
+                        if (attributeModifier.Id != "") {
+                            command += `id:"${attributeModifier.Id}",`
                         } else {
-                            command += `name:"${attributeModifier.AttributeName}",`
+                            command += `id:"${attributeModifier.AttributeName}",`
                         }
                         command += `slot:"${attributeModifier.Slot}",amount:${attributeModifier.Amount},operation:"${attributeModifier.Operation}",uuid:${attributeModifier.UUID},`;
                     });
