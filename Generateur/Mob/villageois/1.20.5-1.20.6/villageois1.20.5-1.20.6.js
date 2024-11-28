@@ -192,6 +192,21 @@ function addTrade() {
                     <select id="outputItemUnbreakable${tradeCount}">
                         <option value="0">Non</option>
                         <option value="1">Oui</option>
+                    </select><br>
+
+                <label for="outputItemRarity${tradeCount}">Rarity :</label>
+                    <select id="outputItemRarity${tradeCount}">
+                        <option value="unset">Unset</option>
+                        <option value="common">Common</option>
+                        <option value="uncommon">Uncommon</option>
+                        <option value="rare">Rare</option>
+                        <option value="epic">epic</option>
+                    </select><br>
+
+                <label for="outputItemFireResitant${tradeCount}">Fire Resistant :</label>
+                    <select id="outputItemFireResitant${tradeCount}">
+                        <option value="0">Non</option>
+                        <option value="1">Oui</option>
                     </select><hr><br>
 
                 <label for="outputItemCanDestroy${tradeCount}" class="output-item-container">Can Destroy :</label>
@@ -253,6 +268,8 @@ function generateCommand() {
         const outputItemLoreColor = document.getElementById(`outputItemLoreColor${i}`).value;
         const outputItemCustomModelData = document.getElementById(`outputItemCustomModelData${i}`).value;
         const outputItemUnbreakable = document.getElementById(`outputItemUnbreakable${i}`).value;
+        const outputItemRarity = document.getElementById(`outputItemRarity${i}`).value;
+        const outputItemFireResitant = document.getElementById(`outputItemFireResitant${i}`).value;
         const outputItemCanDestroy = document.getElementById(`outputItemCanDestroy${i}`).value;
         const outputItemCanPlaceOn = document.getElementById(`outputItemCanPlaceOn${i}`).value;
         const rewardExp = document.getElementById(`rewardExp${i}`).checked;
@@ -380,6 +397,14 @@ function generateCommand() {
 
                 if (outputItemUnbreakable != 0) {
                     command += `"minecraft:unbreakable":{},`;
+                }
+
+                if (outputItemRarity != `unset`) {
+                    command += `"minecraft:rarity":"${outputItemRarity}",`
+                }
+
+                if (outputItemFireResitant != 0) {
+                    command += `"minecraft:fire_resistant":{},`;
                 }
 
                 if (outputItemJson) {
