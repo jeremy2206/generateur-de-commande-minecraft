@@ -308,39 +308,56 @@ function generateCommand() {
             }
 
             if (outputItemName || outputItemLore || outputeItemEnchantmentContainer.length > 0 || outputItemCustomModelData !== "0" || outputItemUnbreakable !== "0" || outputItemCanDestroy || outputItemCanPlaceOn || rewardExp) {
-                command += `"minecraft:custom_name":'{`;
-
-                if (outputItemName) {
-                    command += `"text":"${outputItemName}","color":"${outputItemNameColor}"`;
-
+                
+                if (outputItemName || outputItemLore) {
+                    if (outputItemName) {
+                        command += `"minecraft:custom_name":'{`;
+                        command += `"text":"${outputItemName}","color":"${outputItemNameColor}"}',`;
+                    }
                     if (outputItemLore) {
-                        command += `}',"minecraft:lore":['{`
+                        command += `"minecraft:lore":['{`;
                         command += `"text":"${outputItemLore}","color":"${outputItemLoreColor}"}'],`;
                         
-                    } else {
-                        command += `}',`;
                     }
-                } else {
-                    command += `}',`;
                 }
 
                 if (outputeItemEnchantmentContainer.length > 0) {
-                    command += `"minecraft:enchantments":{`;
+                    if (outputItem == "enchanted_book") {
+                        command += `"minecraft:stored_enchantments":`;
+                        command += `{levels:{`;
+                        outputeItemEnchantmentContainer.forEach((outputItemEnchantmentSelect, index) => {
+                            const enchantment = outputItemEnchantmentSelect.value;
+                            const level = outpoutItemEnchantmentLevels[index].value;
 
-                    outputeItemEnchantmentContainer.forEach((outputItemEnchantmentSelect, index) => {
-                        const enchantment = outputItemEnchantmentSelect.value;
-                        const level = outpoutItemEnchantmentLevels[index].value;
-
-                        if (enchantment) {
-                            command += `levels:{"${enchantment}":${level}},`;
+                            if (enchantment) {
+                                command += `"${enchantment}":${level},`;
+                            }
+                        });
+                        if (outputeItemEnchantmentContainer.length > 0) {
+                            command = command.slice(0, -1);
                         }
-                    });
+    
+                        command += `}},`;
 
-                    if (outputeItemEnchantmentContainer.length > 0) {
-                        command = command.slice(0, -1);
+                    } else {
+                        command += `"minecraft:enchantments":{`;
+
+                        outputeItemEnchantmentContainer.forEach((outputItemEnchantmentSelect, index) => {
+                            const enchantment = outputItemEnchantmentSelect.value;
+                            const level = outpoutItemEnchantmentLevels[index].value;
+    
+                            if (enchantment) {
+                                command += `levels:{"${enchantment}":${level}},`;
+                            }
+                        });
+    
+                        if (outputeItemEnchantmentContainer.length > 0) {
+                            command = command.slice(0, -1);
+                        }
+    
+                        command += `},`;
                     }
-
-                    command += `},`;
+                    
                 }
 
                 const attributeModifiersContainer = document.querySelectorAll(`#attributeModifiersContainer${i} div`);
