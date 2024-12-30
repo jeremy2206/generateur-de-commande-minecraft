@@ -10,7 +10,7 @@ function addEnchantment(tradeIndex) {
         <label for="outputItemEnchantment${tradeIndex}_${enchantmentIndex}">Enchantement :</label>
         <select id="outputItemEnchantment${tradeIndex}_${enchantmentIndex}">
             <option value="">Aucun</option>
-            <option value="aquatic_affinity">Aquatic Affinity</option>
+            <option value="aqua_affinity">Aqua Affinity</option>
             <option value="bane_of_arthropods">Bane of Arthropods</option>
             <option value="binding_curse">Binding Curse</option>
             <option value="blast_protection">Blast Protection</option>
@@ -44,8 +44,8 @@ function addEnchantment(tradeIndex) {
             <option value="silk_touch">Silk Touch</option>
             <option value="smite">Smite</option>
             <option value="soul_speed">Soul Speed</option>
-            <option value="sweeping">Sweeping</option>
-            <option value="swift-sneak">Swift Sneak</option>
+            <option value="sweeping_edge">Sweeping Edge</option>
+            <option value="swift_sneak">Swift Sneak</option>
             <option value="thorns">Thorns</option>
             <option value="unbreaking">Unbreaking</option>
             <option value="vanishing_curse">Vanishing Curse</option>
