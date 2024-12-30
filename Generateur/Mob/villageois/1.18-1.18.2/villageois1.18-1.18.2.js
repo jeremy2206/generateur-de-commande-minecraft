@@ -280,22 +280,42 @@ function generateCommand() {
                 }
 
                 if (outputeItemEnchantmentContainer.length > 0) {
-                    command += `Enchantments:[`;
+                    if (outputItem == "enchanted_book") {
+                        command += `StoredEnchantments:[`;
 
-                    outputeItemEnchantmentContainer.forEach((outputItemEnchantmentSelect, index) => {
-                        const enchantment = outputItemEnchantmentSelect.value;
-                        const level = outpoutItemEnchantmentLevels[index].value;
-
-                        if (enchantment) {
-                            command += `{id:"minecraft:${enchantment}",lvl:${level}b},`;
+                        outputeItemEnchantmentContainer.forEach((outputItemEnchantmentSelect, index) => {
+                            const enchantment = outputItemEnchantmentSelect.value;
+                            const level = outpoutItemEnchantmentLevels[index].value;
+    
+                            if (enchantment) {
+                                command += `{id:"minecraft:${enchantment}",lvl:${level}s},`;
+                            }
+                        });
+    
+                        if (outputeItemEnchantmentContainer.length > 0) {
+                            command = command.slice(0, -1);
                         }
-                    });
+    
+                        command += `],`;
 
-                    if (outputeItemEnchantmentContainer.length > 0) {
-                        command = command.slice(0, -1);
+                    } else {
+                        command += `Enchantments:[`;
+
+                        outputeItemEnchantmentContainer.forEach((outputItemEnchantmentSelect, index) => {
+                            const enchantment = outputItemEnchantmentSelect.value;
+                            const level = outpoutItemEnchantmentLevels[index].value;
+    
+                            if (enchantment) {
+                                command += `{id:"minecraft:${enchantment}",lvl:${level}b},`;
+                            }
+                        });
+    
+                        if (outputeItemEnchantmentContainer.length > 0) {
+                            command = command.slice(0, -1);
+                        }
+    
+                        command += `],`;
                     }
-
-                    command += `],`;
                 }
 
                 const attributeModifiersContainer = document.querySelectorAll(`#attributeModifiersContainer${i} div`);
