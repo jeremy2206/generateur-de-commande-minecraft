@@ -104,10 +104,11 @@ function addAttributeModifier(tradeIndex) {
             <option value="oxygen_bonus">Oxygen Bonus</option>
             <option value="safe_fall_distance">Safe Fall Distance</option>
             <option value="scale">Scale</option>
-            <option value="sneaking_speed">Sneaking Speedd</option>
+            <option value="sneaking_speed">Sneaking Speed</option>
             <option value="submerged_mining_speed">Submerged Mining Speed</option>
             <option value="sweeping_damage_ratio">Sweeping Damage Ratio</option>
             <option value="step_height">Step Height</option>
+            <option value="tempt_range">Tempt Range</option>
             <option value="water_movement_efficiency">Water Movement Effciency</option>
         </select>
         
@@ -221,6 +222,116 @@ function addTrade() {
                         <option value="0">Non</option>
                         <option value="1">Oui</option>
                     </select><hr><br>
+                
+                <label for="outputItemConsumable${tradeCount}">Consumable :</label>
+                    <select id="outputItemConsumable${tradeCount}">
+                        <option value="0">Non</option>
+                        <option value="1">Oui</option>
+                    </select>
+                <label for="outputItemConsumableSeconds${tradeCount}">Consumable Seconds :</label>
+                    <input type="text" id="outputItemConsumableSeconds${tradeCount}" placeholder="0">
+                <label for="outputItemConsumableAnimation${tradeCount}">Consumable Animation :</label>
+                    <select id="outputItemConsumableAnimation${tradeCount}">
+                        <option value="unset">Unset</option>
+                        <option value="none">None</option>
+                        <option value="eat">Eat</option>
+                        <option value="drink">Drink</option>
+                        <option value="block">Block</option>
+                        <option value="bow">Bow</option>
+                        <option value="spear">Spear</option>
+                        <option value="crossbow">Crossbow</option>
+                        <option value="spyglass">Spyglass</option>
+                        <option value="toot_horn">Toot Horn</option>
+                        <option value="brush">Brush</option>
+                    </select>
+                <label for="outputItemConsumableSoundEvent${tradeCount}">Consumable Sound Event :</label>
+                    <input type="text" id="outputItemConsumableSoundEvent${tradeCount}" placeholder="ambiant.cave">
+                <label for="outputItemConsumableHasConsumeParticle${tradeCount}">Consumable Has Consume Particle : </label>
+                    <select id="outputItemConsumableHasConsumeParticle${tradeCount}">
+                        <option value="0">Non</option>
+                        <option value="1">Oui</option>
+                    </select><br>
+                <label for="outputItemConsumableClearAllEffects${tradeCount}">On Consume Effects - Clear All Effects : </label>
+                    <select id="outputItemConsumableClearAllEffects${tradeCount}">
+                        <option value="0">Non</option>
+                        <option value="1">Oui</option>
+                    </select>
+                <label for="outputItemConsumableTeleportRandomly${tradeCount}">On Consume Effects - Teleport Randomly : </label>
+                    <input type="text" id="outputItemConsumableTeleportRandomly${tradeCount}" placeholder="5.5">
+                <label for="outputItemConsumablePlaySound${tradeCount}">On Consume Effects - Play Sound :</label>
+                    <input type="text" id="outputItemConsumablePlaySound${tradeCount}" placeholder="ambiant.cave"><hr><br>
+
+                <label for="outputItemEquipable${tradeCount}">Equipable :</label>
+                    <select id="outputItemEquipable${tradeCount}">
+                        <option value="0">Non</option>
+                        <option value="1">Oui</option>
+                    </select>
+                <label for="outputItemEquipableSlot${tradeCount}">Equipable Slot :</label>
+                    <select id="outputItemEquipableSlot${tradeCount}">
+                        <option value="unset">Unset</option>
+                        <option value="feet">Feet</option>
+                        <option value="legs">Legs</option>
+                        <option value="chest">Chest</option>
+                        <option value="head">Head</option>
+                        <option value="body">Body</option>
+                        <option value="mainhand">Main Hand</option>
+                        <option value="offhand">Off Hand</option>
+                    </select>
+                <label for="outputItemEquipableEquipSound${tradeCount}">Equipable Equip Sound :</label>
+                    <input type="text" id="outputItemEquipableEquipSound${tradeCount}" placeholder="ambiant.cave">
+                <label for="outputItemEquipableSwappable${tradeCount}">Equipable Swappable :</label>
+                    <select id="outputItemEquipableSwappable${tradeCount}">
+                        <option value="0">Non</option>
+                        <option value="1">Oui</option>
+                    </select>
+                <label for="outputItemEquipableDamageOnHurt${tradeCount}">Equipable Damage On Hurt :</label>
+                    <select id="outputItemEquipableDamageOnHurt${tradeCount}">
+                        <option value="0">Non</option>
+                        <option value="1">Oui</option>
+                    </select>
+                <label for="outputItemEquipableGlider${tradeCount}">Equipable Glider:</label>
+                    <select id="outputItemEquipableGlider${tradeCount}">
+                        <option value="0">Non</option>
+                        <option value="1">Oui</option>
+                    </select><hr><br>
+
+                <label for="outputItemFood${tradeCount}">Food :</label>
+                    <select id="outputItemFood${tradeCount}">
+                        <option value="0">Non</option>
+                        <option value="1">Oui</option>
+                    </select>
+                <label for="outputItemFoodNutrition${tradeCount}">Food Nutrition :</label>
+                    <input type="text" id="outputItemFoodNutrition${tradeCount}" placeholder="5">
+                <label for="outputItemFoodSaturation${tradeCount}">Food Saturation :</label>
+                    <input type="text" id="outputItemFoodSaturation${tradeCount}" placeholder="5">
+                <label for="outputItemFoodCanAlwaysEat${tradeCount}">Food Can Alaways Eat:</label>
+                    <select id="outputItemFoodCanAlwaysEat${tradeCount}">
+                        <option value="0">Non</option>
+                        <option value="1">Oui</option>
+                    </select><hr><br>
+
+                <label for="outputItemUseCoolDown${tradeCount}">Use CoolDown :</label>
+                    <select id="outputItemUseCoolDown${tradeCount}">
+                        <option value="0">Non</option>
+                        <option value="1">Oui</option>
+                    </select>
+                <label for="outputItemUseCoolDownSeconds${tradeCount}">Use CoolDown Seconds :</label>
+                    <input type="text" id="outputItemUseCoolDownSeconds${tradeCount}" placeholder="5">
+                <label for="outputItemUseCooldownGroup${tradeCount}">Food Cooldown Group :</label>
+                    <input type="text" id="outputItemUseCooldownGroup${tradeCount}" placeholder="supergroup"><hr><br>
+                
+                <label for="outputItemJukeboxPlayable${tradeCount}">Jukebox Playable :</label>
+                    <select id="outputItemJukeboxPlayable${tradeCount}">
+                        <option value="0">Non</option>
+                        <option value="1">Oui</option>
+                    </select>
+                <label for="outputItemJukeboxPlayableSong${tradeCount}">Jukebox Playable Song :</label>
+                    <input type="text" id="outputItemJukeboxPlayableSong${tradeCount}" placeholder="minecraft:precipice">
+                <label for="outputItemJukeboxPlayableShowInTooltip${tradeCount}">Jukebox Playable Show In Tooltip :</label>
+                    <select id="outputItemJukeboxPlayableShowInTooltip${tradeCount}">
+                        <option value="0">Non</option>
+                        <option value="1">Oui</option>
+                    </select><hr><br>
 
                 <label for="outputItemCanDestroy${tradeCount}" class="output-item-container">Can Destroy :</label>
                 <input type="text" id="outputItemCanDestroy${tradeCount}" placeholder="ex : stone,dirt"><br>
@@ -283,6 +394,30 @@ function generateCommand() {
         const outputItemUnbreakable = document.getElementById(`outputItemUnbreakable${i}`).value;
         const outputItemRarity = document.getElementById(`outputItemRarity${i}`).value;
         const outputItemFireResitant = document.getElementById(`outputItemFireResitant${i}`).value;
+        const outputItemConsumable = document.getElementById(`outputItemConsumable${i}`).value;
+        const outputItemConsumableSeconds = document.getElementById(`outputItemConsumableSeconds${i}`).value;
+        const outputItemConsumableAnimation = document.getElementById(`outputItemConsumableAnimation${i}`).value;
+        const outputItemConsumableSoundEvent = document.getElementById(`outputItemConsumableSoundEvent${i}`).value;
+        const outputItemConsumableHasConsumeParticle = document.getElementById(`outputItemConsumableHasConsumeParticle${i}`).value;
+        const outputItemConsumableClearAllEffects = document.getElementById(`outputItemConsumableClearAllEffects${i}`).value;
+        const outputItemConsumableTeleportRandomly = document.getElementById(`outputItemConsumableTeleportRandomly${i}`).value;
+        const outputItemConsumablePlaySound = document.getElementById(`outputItemConsumablePlaySound${i}`).value;
+        const outputItemEquipable = document.getElementById(`outputItemEquipable${i}`).value;
+        const outputItemEquipableSlot = document.getElementById(`outputItemEquipableSlot${i}`).value;
+        const outputItemEquipableEquipSound = document.getElementById(`outputItemEquipableEquipSound${i}`).value;
+        const outputItemEquipableSwappable = document.getElementById(`outputItemEquipableSwappable${i}`).value;
+        const outputItemEquipableDamageOnHurt = document.getElementById(`outputItemEquipableDamageOnHurt${i}`).value;
+        const outputItemEquipableGlider = document.getElementById(`outputItemEquipableGlider${i}`).value;
+        const outputItemFood = document.getElementById(`outputItemFood${i}`).value;
+        const outputItemFoodNutrition = document.getElementById(`outputItemFoodNutrition${i}`).value;
+        const outputItemFoodSaturation = document.getElementById(`outputItemFoodSaturation${i}`).value;
+        const outputItemFoodCanAlwaysEat = document.getElementById(`outputItemFoodCanAlwaysEat${i}`).value;
+        const outputItemUseCoolDown = document.getElementById(`outputItemUseCoolDown${i}`).value;
+        const outputItemUseCoolDownSeconds = document.getElementById(`outputItemUseCoolDownSeconds${i}`).value;
+        const outputItemUseCooldownGroup = document.getElementById(`outputItemUseCooldownGroup${i}`).value;
+        const outputItemJukeboxPlayable = document.getElementById(`outputItemJukeboxPlayable${i}`).value;
+        const outputItemJukeboxPlayableSong = document.getElementById(`outputItemJukeboxPlayableSong${i}`).value;
+        const outputItemJukeboxPlayableShowInTooltip = document.getElementById(`outputItemJukeboxPlayableShowInTooltip${i}`).value;
         const outputItemCanDestroy = document.getElementById(`outputItemCanDestroy${i}`).value;
         const outputItemCanPlaceOn = document.getElementById(`outputItemCanPlaceOn${i}`).value;
         const rewardExp = document.getElementById(`rewardExp${i}`).checked;
@@ -435,6 +570,98 @@ function generateCommand() {
 
                 if (outputItemFireResitant != 0) {
                     command += `"minecraft:fire_resistant":{},`;
+                }
+
+                if (outputItemConsumable != 0) {
+                    command += `"minecraft:consumable":{`;
+                    if (outputItemConsumableSeconds) {
+                        command += `consume_seconds:${outputItemConsumableSeconds},`;
+                    }
+                    if (outputItemConsumableAnimation != `unset`) {
+                        command += `animation:"${outputItemConsumableAnimation}",`;
+                    }
+                    if (outputItemConsumableSoundEvent) {
+                        command += `sound:"${outputItemConsumableSoundEvent}",`;
+                    }
+                    if (outputItemConsumableHasConsumeParticle != 0) {
+                        command += `has_consume_particle:true,`;
+                    }
+                    if (outputItemConsumableClearAllEffects != 0 || outputItemConsumableTeleportRandomly || outputItemConsumablePlaySound) {
+                        command += `on_consume_effects:[`;
+                        if (outputItemConsumableClearAllEffects != 0) {
+                            command += `{type:"minecraft:clear_all_effects"},`;
+                        }
+                        if (outputItemConsumableTeleportRandomly) {
+                            command += `{type:"minecraft:teleport_randomly",diameter:${outputItemConsumableTeleportRandomly}},`;
+                        }
+                        if (outputItemConsumablePlaySound) {
+                            command += `{type:"minecraft:play_sound",sound:"${outputItemConsumablePlaySound}"},`;
+                        }
+                        command = command.replace(/,\s*$/, ''); // Supprimez la virgule finale
+                        command += `],`;
+                    }
+                    command += `},`;
+                }
+
+                if (outputItemEquipable != 0) {
+                    command += `"minecraft:equippable":{`;
+                    if (outputItemEquipableSlot != `unset`) {
+                        command += `slot:"${outputItemEquipableSlot}",`;
+                    }
+                    if (outputItemEquipableEquipSound) {
+                        command += `equip_sound:"${outputItemEquipableEquipSound}",`;
+                    }
+                    if (outputItemEquipableSwappable != 0) {
+                        command += `swappable:true,`;
+                    }
+                    if (outputItemEquipableDamageOnHurt != 0) {
+                        command += `damage_on_hurt:true,`;
+                    }
+                    command = command.replace(/,\s*$/, ''); // Supprimez la virgule finale
+                    command += `},`;
+                }
+
+                if (outputItemEquipableGlider != 0) {
+                    command += `"minecraft:glider":{},`;
+                }
+
+                if (outputItemFood != 0) {
+                    command += `"minecraft:food":{`;
+                    if (outputItemFoodNutrition) {
+                        command += `nutrition:${outputItemFoodNutrition},`;
+                    }
+                    if (outputItemFoodSaturation) {
+                        command += `saturation:${outputItemFoodSaturation},`;
+                    }
+                    if (outputItemFoodCanAlwaysEat != 0) {
+                        command += `can_always_eat:true,`;
+                    }
+                    command = command.replace(/,\s*$/, ''); // Supprimez la virgule finale
+                    command += `},`;
+                }
+
+                if (outputItemUseCoolDown != 0) {
+                    command += `"minecraft:use_cooldown":{`;
+                    if (outputItemUseCoolDownSeconds) {
+                        command += `seconds:${outputItemUseCoolDownSeconds},`;
+                    }
+                    if (outputItemUseCooldownGroup) {
+                        command += `cooldown_group:"${outputItemUseCooldownGroup}",`;
+                    }
+                    command = command.replace(/,\s*$/, ''); // Supprimez la virgule finale
+                    command += `},`;
+                }
+
+                if (outputItemJukeboxPlayable != 0) {
+                    command += `"minecraft:jukebox_playable":{`;
+                    if (outputItemJukeboxPlayableSong) {
+                        command += `song:"${outputItemJukeboxPlayableSong}",`;
+                    }
+                    if (outputItemJukeboxPlayableShowInTooltip != 0) {
+                        command += `show_in_tooltip:true,`;
+                    }
+                    command = command.replace(/,\s*$/, ''); // Supprimez la virgule finale
+                    command += `},`;
                 }
 
                 if (outputItemJson) {

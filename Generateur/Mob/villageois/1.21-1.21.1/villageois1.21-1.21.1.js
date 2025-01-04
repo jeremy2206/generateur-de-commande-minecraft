@@ -104,7 +104,7 @@ function addAttributeModifier(tradeIndex) {
             <option value="oxygen_bonus">Oxygen Bonus</option>
             <option value="safe_fall_distance">Safe Fall Distance</option>
             <option value="scale">Scale</option>
-            <option value="sneaking_speed">Sneaking Speedd</option>
+            <option value="sneaking_speed">Sneaking Speed</option>
             <option value="submerged_mining_speed">Submerged Mining Speed</option>
             <option value="sweeping_damage_ratio">Sweeping Damage Ratio</option>
             <option value="step_height">Step Height</option>
