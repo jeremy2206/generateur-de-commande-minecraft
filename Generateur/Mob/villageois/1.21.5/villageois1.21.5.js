@@ -55,7 +55,7 @@ function addEnchantment(tradeIndex) {
         </select>
         <label for="outputItemEnchantmentLevel${tradeIndex}_${enchantmentIndex}">Niveau d'enchantement :</label>
         <input type="number" id="outputItemEnchantmentLevel${tradeIndex}_${enchantmentIndex}" min="1" max="255">
-        <button class="delete-button" onclick="removeEnchantment(${tradeIndex}, ${enchantmentIndex})">Supprimer cet enchantement</button><br><hr class="littlehr">
+        <button class="delete-button" onclick="removeEnchantment(${tradeIndex}, ${enchantmentIndex})">Supprimer cet enchantement</button><br><hr>
     `;
     outputeItemEnchantmentContainer.appendChild(enchantmentDiv);
 }
@@ -227,7 +227,7 @@ function addAttributeModifier(tradeIndex) {
         </select>
         <input type="number" id="outputAttributeEffectAmountNumber${tradeCount}_${attributeModifierIndex}" value="1"><br>
         
-        <button class="delete-button" onclick="removeAttributeModifier(${tradeIndex}, ${attributeModifierIndex})">Supprimer cet attribut modificateur</button><br><hr class="littlehr">
+        <button class="delete-button" onclick="removeAttributeModifier(${tradeIndex}, ${attributeModifierIndex})">Supprimer cet attribut modificateur</button><br><hr>
     `;
 
     attributeModifiersContainer.appendChild(attributeModifierDiv);
@@ -307,12 +307,22 @@ function addTrade() {
                         <option value="rare">Rare</option>
                         <option value="epic">epic</option>
                     </select><br>
-
+                
                 <label for="outputItemFireResitant${tradeCount}">Fire Resistant :</label>
                     <select id="outputItemFireResitant${tradeCount}">
                         <option value="0">Non</option>
                         <option value="1">Oui</option>
                     </select><hr><br>
+
+                <label for="outputItemBlockAttacks${tradeCount}">Block Attacks :</label>
+                    <select id="outputItemBlockAttacks${tradeCount}" onchange="toggleSection(${tradeCount}, 'outputItemBlockAttacks', this.value)">
+                        <option value="0">Non</option>
+                        <option value="1">Oui</option>
+                    </select>
+                <div id="outputItemBlockAttacksSection${tradeCount}" style="display: none;">
+                    <label for="outputItemBlockAttacksSoundBlock${tradeCount}">Block Attacks Sound :</label>
+                        <input type="text" id="outputItemBlockAttacksSoundBlock${tradeCount}" placeholder="ambiant.cave">
+                </div><hr><br>
                 
                 <label for="outputItemConsumable${tradeCount}">Consumable :</label>
                     <select id="outputItemConsumable${tradeCount}" onchange="toggleSection(${tradeCount}, 'outputItemConsumable', this.value)">
@@ -422,7 +432,6 @@ function addTrade() {
                     <label for="outputItemDeathProtectionPlaySound${tradeCount}">Death Protection Play Sound :</label>
                         <input type="text" id="outputItemDeathProtectionPlaySound${tradeCount}" placeholder="ambiant.cave">
                 </div><hr><br>
-                    
 
                 <label for="outputItemFood${tradeCount}">Food :</label>
                     <select id="outputItemFood${tradeCount}" onchange="toggleSection(${tradeCount}, 'outputItemFood', this.value)">
@@ -513,9 +522,12 @@ function generateCommand() {
     const vilagerRotaHorizontale = document.getElementById("rotationY").value;
     const vilagerRotaVerticale = document.getElementById("rotationX").value;
 
-    let command = `/summon minecraft:villager ${spawnType === 'relative' ? `~${spawnX} ~${spawnY} ~${spawnZ}` : `${spawnX} ${spawnY} ${spawnZ}`} {VillagerData:{profession:"${profession}",level:${level},type:"${biome}"},Invulnerable:${document.getElementById("invulnerable").checked ? "1" : "0"}b,PersistenceRequired:${document.getElementById("persistent").checked ? "1" : "0"}b,Silent:${document.getElementById("silent").checked ? "1" : "0"}b,NoAI:${document.getElementById("noAI").checked ? "1" : "0"}b,CustomNameVisible:${document.getElementById("customnamevisible").checked ? "1" : "0"}b,Glowing:${document.getElementById("glowing").checked ? "1" : "0"}b,Rotation:[${vilagerRotaHorizontale}f,${vilagerRotaVerticale}f],CustomName:'{"text":"${villagerName}"}',Offers:{Recipes:[`;
+    let command = `/summon minecraft:villager ${spawnType === 'relative' ? `~${spawnX} ~${spawnY} ~${spawnZ}` : `${spawnX} ${spawnY} ${spawnZ}`} {VillagerData:{profession:"${profession}",level:${level},type:"${biome}"},Invulnerable:${document.getElementById("invulnerable").checked ? "1" : "0"}b,PersistenceRequired:${document.getElementById("persistent").checked ? "1" : "0"}b,Silent:${document.getElementById("silent").checked ? "1" : "0"}b,NoAI:${document.getElementById("noAI").checked ? "1" : "0"}b,CustomNameVisible:${document.getElementById("customnamevisible").checked ? "1" : "0"}b,Glowing:${document.getElementById("glowing").checked ? "1" : "0"}b,Rotation:[${vilagerRotaHorizontale}f,${vilagerRotaVerticale}f],CustomName:'${villagerName}',Offers:{Recipes:[`;
 
     for (let i = 1; i <= tradeCount; i++) {
+        const outpoutItemEnchantmentLevels = document.querySelectorAll(`#enchantmentContainer${i} input`);
+        const outputItemJson = document.getElementById(`outputItemJson${i}`).value;
+
         command += "{";
 
         const rewardExp = document.getElementById(`rewardExp${i}`).checked;
@@ -551,10 +563,10 @@ function generateCommand() {
         const outputItemNameColor = document.getElementById(`outputItemNameColor${i}`).value;
         const outputItemLoreColor = document.getElementById(`outputItemLoreColor${i}`).value;
         const outputItemCustomModelData = document.getElementById(`outputItemCustomModelData${i}`).value;
+        const outputeItemEnchantmentContainer = document.querySelectorAll(`#enchantmentContainer${i} select`);
         const outputItemUnbreakable = document.getElementById(`outputItemUnbreakable${i}`).value;
         const outputItemCanDestroy = document.getElementById(`outputItemCanDestroy${i}`).value;
         const outputItemCanPlaceOn = document.getElementById(`outputItemCanPlaceOn${i}`).value;
-        const outputeItemEnchantmentContainer = document.querySelectorAll(`#enchantmentContainer${i} select`);
         if (outputItem || outputItemName || outputItemLore || outputeItemEnchantmentContainer.length > 0 || outputItemCustomModelData !== "0" || outputItemUnbreakable !== "0" || outputItemCanDestroy || outputItemCanPlaceOn) {
             command += `sell:{`;
 
@@ -576,11 +588,10 @@ function generateCommand() {
                     }
                 }
 
-                const outpoutItemEnchantmentLevels = document.querySelectorAll(`#enchantmentContainer${i} input`);
                 if (outputeItemEnchantmentContainer.length > 0) {
                     if (outputItem == "enchanted_book") {
                         command += `"minecraft:stored_enchantments":`;
-                        command += `{levels:{`;
+                        command += `{`;
                         outputeItemEnchantmentContainer.forEach((outputItemEnchantmentSelect, index) => {
                             const enchantment = outputItemEnchantmentSelect.value;
                             const level = outpoutItemEnchantmentLevels[index].value;
@@ -593,7 +604,7 @@ function generateCommand() {
                             command = command.slice(0, -1);
                         }
     
-                        command += `}},`;
+                        command += `},`;
 
                     } else {
                         command += `"minecraft:enchantments":{`;
@@ -603,7 +614,7 @@ function generateCommand() {
                             const level = outpoutItemEnchantmentLevels[index].value;
     
                             if (enchantment) {
-                                command += `levels:{"${enchantment}":${level}},`;
+                                command += `"minecraft:${enchantment}":${level},`;
                             }
                         });
     
@@ -682,6 +693,16 @@ function generateCommand() {
                     command += `"minecraft:fire_resistant":{},`;
                 }
 
+                const outputItemBlockAttacks = document.getElementById(`outputItemBlockAttacks${i}`).value;
+                const outputItemBlockAttacksSoundBlock = document.getElementById(`outputItemBlockAttacksSoundBlock${i}`).value;
+                if (outputItemBlockAttacks != 0) {
+                    command += `"minecraft:blocks_attacks":{block_delay_seconds:0,`;
+                    if (outputItemBlockAttacksSoundBlock) {
+                        command += `block_sound:"${outputItemBlockAttacksSoundBlock}",`;
+                    command += `},`;
+                    }
+                }
+
                 const outputItemConsumable = document.getElementById(`outputItemConsumable${i}`).value;
                 const outputItemConsumableSeconds = document.getElementById(`outputItemConsumableSeconds${i}`).value;
                 const outputItemConsumableAnimation = document.getElementById(`outputItemConsumableAnimation${i}`).value;
@@ -720,7 +741,7 @@ function generateCommand() {
                     }
                     command += `},`;
                 }
-
+                
                 const outputItemEquipable = document.getElementById(`outputItemEquipable${i}`).value;
                 const outputItemEquipableSlot = document.getElementById(`outputItemEquipableSlot${i}`).value;
                 const outputItemEquipableEquipSound = document.getElementById(`outputItemEquipableEquipSound${i}`).value;
@@ -803,7 +824,7 @@ function generateCommand() {
                     }
                     command += `},`;
                 }
-                
+
                 const outputItemFood = document.getElementById(`outputItemFood${i}`).value;
                 const outputItemFoodNutrition = document.getElementById(`outputItemFoodNutrition${i}`).value;
                 const outputItemFoodSaturation = document.getElementById(`outputItemFoodSaturation${i}`).value;
@@ -853,11 +874,10 @@ function generateCommand() {
                     command += `},`;
                 }
 
-                const outputItemJson = document.getElementById(`outputItemJson${i}`).value;
                 if (outputItemJson) {
                     command += `${outputItemJson},`;
                 }
-                    
+                
                 if (outputItemCanDestroy) {
                     command += `"minecraft:can_break":{predicates:[`;
                     const blocks = outputItemCanDestroy.split(",");
