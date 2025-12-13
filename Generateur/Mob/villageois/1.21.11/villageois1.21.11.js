@@ -31,6 +31,7 @@ function addEnchantment(tradeIndex) {
             <option value="looting">Looting</option>
             <option value="loyalty">Loyalty</option>
             <option value="luck_of_the_sea">Luck of the Sea</option>
+            <option value="lunge">Lunge</option>
             <option value="lure">Lure</option>
             <option value="mending">Mending</option>
             <option value="multishot">Multishot</option>
@@ -179,6 +180,7 @@ function addAttributeModifier(tradeIndex) {
             <option value="block_break_speed">Block Break Speed</option>
             <option value="block_interaction_range">Block Interaction Range</option>
             <option value="burning_time">Burning Time</option>
+            <option value="camera_distance">Camera Distance</option>
             <option value="entity_interaction_range">Entity Interaction Range</option>
             <option value="explosion_knockback_resistance">Explosion Knockback Resistance</option>
             <option value="fall_damage_multiplier">Fall Damage Multiplier</option>
@@ -196,11 +198,13 @@ function addAttributeModifier(tradeIndex) {
             <option value="safe_fall_distance">Safe Fall Distance</option>
             <option value="scale">Scale</option>
             <option value="sneaking_speed">Sneaking Speed</option>
+            <option value="step_height">Step Height</option>
             <option value="submerged_mining_speed">Submerged Mining Speed</option>
             <option value="sweeping_damage_ratio">Sweeping Damage Ratio</option>
-            <option value="step_height">Step Height</option>
             <option value="tempt_range">Tempt Range</option>
             <option value="water_movement_efficiency">Water Movement Effciency</option>
+            <option value=waypoint_receive_range">Waypoint Receive Range</option>
+            <option value="waypoint_transmit_range">Waypoint Transmit Range</option>
         </select>
         
         <label for="outputAttributeEffectId${tradeIndex}_${attributeModifierIndex}">ID/Nom de l'attribut :</label>
@@ -592,12 +596,12 @@ function generateCommand() {
                 
                 if (outputItemName || outputItemLore) {
                     if (outputItemName) {
-                        command += `"minecraft:custom_name":'{`;
-                        command += `"text":"${outputItemName}","color":"${outputItemNameColor}"}',`;
+                        command += `"minecraft:custom_name":{`;
+                        command += `"text":"${outputItemName}","color":"${outputItemNameColor}"},`;
                     }
                     if (outputItemLore) {
-                        command += `"minecraft:lore":['{`;
-                        command += `"text":"${outputItemLore}","color":"${outputItemLoreColor}"}'],`;
+                        command += `"minecraft:lore":[{`;
+                        command += `"text":"${outputItemLore}","color":"${outputItemLoreColor}"}],`;
                         
                     }
                 }

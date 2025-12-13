@@ -1,5 +1,5 @@
 let tradeCount = 0;
-const maxTrades = 27;
+const maxTrades = 20;
 
 function addEnchantment(tradeIndex) {
     const outputeItemEnchantmentContainer = document.getElementById(`enchantmentContainer${tradeIndex}`);
@@ -185,6 +185,9 @@ function addTrade() {
 
                 <label for="outputItemAmount${tradeCount}">Quantité Item de Sortie :</label>
                 <input type="number" id="outputItemAmount${tradeCount}" value="1"><br>
+
+                <label for="outputMaxStackSize${tradeCount}">Max Stack Size :</label>
+                <input type="number" id="outputMaxStackSize${tradeCount}" placeholder="7"><br>
                 
                 <label for="outputItemName${tradeCount}" class="output-item-container">Display Name:</label>
                 <div class="output-item-color-container">
@@ -206,6 +209,9 @@ function addTrade() {
                         <option value="0">Non</option>
                         <option value="1">Oui</option>
                     </select><br>
+
+                <label for="outputDamage${tradeCount}">Damage:</label>
+                <input type="number" id="outputDamage${tradeCount}" min="0" placeholder="10"><br>
 
                 <label for="outputItemRarity${tradeCount}">Rarity :</label>
                     <select id="outputItemRarity${tradeCount}">
@@ -238,6 +244,19 @@ function addTrade() {
                 </div>
                 <button onclick="addAttributeModifier(${tradeCount})">Ajouter un Attribute Modifier</button><br><br><hr>
 
+                <label for="enchantmentGlintOveride${tradeCount}">Enchantment Glint Override :</label>
+                    <select id="enchantmentGlintOveride${tradeCount}">
+                        <option value="2">Unset</option>
+                        <option value="0">Non</option>
+                        <option value="1">Oui</option>
+                    </select><br><hr>
+
+                <label for="outputHideToolTyp"${tradeCount}">Hide Tool Tip :</label>
+                    <select id="outputHideToolTip${tradeCount}">
+                        <option value="0">Non</option>
+                        <option value="1">Oui</option>
+                    </select><br><hr>
+                
                 <label for="outputItemJson${tradeCount}">Autre JSON :</label>
                 <input type="text" id="outputItemJson${tradeCount}" placeholder="ex : pages:[{text:Test}'],title:Test,author:Jerem2206"><br><hr>
 
@@ -275,12 +294,14 @@ function generateCommand() {
         const inputItemAmount2 = document.getElementById(`inputItemAmount2${i}`).value;
         const outputItem = document.getElementById(`outputItem${i}`).value;
         const outputItemAmount = document.getElementById(`outputItemAmount${i}`).value;
+         const outputMaxStackSize = document.getElementById(`outputMaxStackSize${i}`).value;
         const outputItemName = document.getElementById(`outputItemName${i}`).value;
         const outputItemLore = document.getElementById(`outputItemLore${i}`).value;
         const outputItemNameColor = document.getElementById(`outputItemNameColor${i}`).value;
         const outputItemLoreColor = document.getElementById(`outputItemLoreColor${i}`).value;
         const outputItemCustomModelData = document.getElementById(`outputItemCustomModelData${i}`).value;
         const outputItemUnbreakable = document.getElementById(`outputItemUnbreakable${i}`).value;
+        const outputItemDamage = document.getElementById(`outputDamage${i}`).value;
         const outputItemRarity = document.getElementById(`outputItemRarity${i}`).value;
         const outputItemFireResitant = document.getElementById(`outputItemFireResitant${i}`).value;
         const outputItemCanDestroy = document.getElementById(`outputItemCanDestroy${i}`).value;
@@ -289,6 +310,8 @@ function generateCommand() {
         const maxUses = document.getElementById(`maxUses${i}`).value;
         const outputeItemEnchantmentContainer = document.querySelectorAll(`#enchantmentContainer${i} select`);
         const outpoutItemEnchantmentLevels = document.querySelectorAll(`#enchantmentContainer${i} input`);
+        const outputHideToolTip = document.getElementById(`outputHideToolTip${i}`).value;
+        const enchantmentGlintOveride = document.getElementById(`enchantmentGlintOveride${i}`).value;
         const outputItemJson = document.getElementById(`outputItemJson${i}`).value;
 
         command += "{";
@@ -429,6 +452,10 @@ function generateCommand() {
                     command += `"minecraft:unbreakable":{},`;
                 }
 
+                if (outputItemDamage) {
+                    command += `"minecraft:damage":${outputItemDamage},`;
+                }
+
                 if (outputItemRarity != `unset`) {
                     command += `"minecraft:rarity":"${outputItemRarity}",`
                 }
@@ -460,6 +487,23 @@ function generateCommand() {
                     });
                     command = command.replace(/,\s*$/, ''); // Supprimez la virgule finale
                     command += `]},`;
+                }
+
+                if (enchantmentGlintOveride != 2) {
+                    command += `minecraft:enchantment_glint_override":`;
+                    if (enchantmentGlintOveride == 1) {
+                        command += `true,`;
+                    } else if (enchantmentGlintOveride == 0) {
+                        command += `false,`;
+                    }
+                }
+
+                if (outputHideToolTip != 0) {
+                    command += `"minecraft:hide_tooltip":{},`;
+                }
+
+                if (outputMaxStackSize) {
+                    command += `"minecraft:max_stack_size":${outputMaxStackSize},`;
                 }
 
             }

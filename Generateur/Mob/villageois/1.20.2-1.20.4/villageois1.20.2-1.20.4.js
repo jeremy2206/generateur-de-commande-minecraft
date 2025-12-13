@@ -1,5 +1,5 @@
 let tradeCount = 0;
-const maxTrades = 27;
+const maxTrades = 20;
 
 function addEnchantment(tradeIndex) {
     const outputeItemEnchantmentContainer = document.getElementById(`enchantmentContainer${tradeIndex}`);
@@ -181,7 +181,10 @@ function addTrade() {
                     <select id="outputItemUnbreakable${tradeCount}">
                         <option value="0">Non</option>
                         <option value="1">Oui</option>
-                    </select><hr><br>
+                    </select><br>
+
+                <label for="outputDamage${tradeCount}">Damage:</label>
+                <input type="number" id="outputDamage${tradeCount}" min="0" placeholder="10"><br><hr>
 
                 <label for="outputItemCanDestroy${tradeCount}" class="output-item-container">Can Destroy :</label>
                 <input type="text" id="outputItemCanDestroy${tradeCount}" placeholder="ex : stone,dirt"><br>
@@ -242,6 +245,7 @@ function generateCommand() {
         const outputItemLoreColor = document.getElementById(`outputItemLoreColor${i}`).value;
         const outputItemCustomModelData = document.getElementById(`outputItemCustomModelData${i}`).value;
         const outputItemUnbreakable = document.getElementById(`outputItemUnbreakable${i}`).value;
+        const outputItemDamage = document.getElementById(`outputDamage${i}`).value;
         const outputItemCanDestroy = document.getElementById(`outputItemCanDestroy${i}`).value;
         const outputItemCanPlaceOn = document.getElementById(`outputItemCanPlaceOn${i}`).value;
         const rewardExp = document.getElementById(`rewardExp${i}`).checked;
@@ -378,6 +382,10 @@ function generateCommand() {
 
                 if (outputItemUnbreakable != 0) {
                     command += `Unbreakable:1b,`;
+                }
+
+                if (outputItemDamage) {
+                    command += `Damage:${outputItemDamage},`;
                 }
 
                 if (outputItemJson) {

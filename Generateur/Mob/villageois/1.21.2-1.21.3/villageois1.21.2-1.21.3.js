@@ -1,5 +1,5 @@
 let tradeCount = 0;
-const maxTrades = 27;
+const maxTrades = 20;
 
 function addEnchantment(tradeIndex) {
     const outputeItemEnchantmentContainer = document.getElementById(`enchantmentContainer${tradeIndex}`);
@@ -277,6 +277,9 @@ function addTrade() {
 
                 <label for="outputItemAmount${tradeCount}">Quantité Item de Sortie :</label>
                 <input type="number" id="outputItemAmount${tradeCount}" value="1"><br>
+
+                <label for="outputMaxStackSize${tradeCount}">Max Stack Size :</label>
+                <input type="number" id="outputMaxStackSize${tradeCount}" placeholder="7"><br>
                 
                 <label for="outputItemName${tradeCount}" class="output-item-container">Display Name:</label>
                 <div class="output-item-color-container">
@@ -298,6 +301,9 @@ function addTrade() {
                         <option value="0">Non</option>
                         <option value="1">Oui</option>
                     </select><br>
+
+                <label for="outputDamage${tradeCount}">Damage:</label>
+                <input type="number" id="outputDamage${tradeCount}" min="0" placeholder="10"><br>
 
                 <label for="outputItemRarity${tradeCount}">Rarity :</label>
                     <select id="outputItemRarity${tradeCount}">
@@ -434,7 +440,7 @@ function addTrade() {
                         <input type="text" id="outputItemFoodNutrition${tradeCount}" placeholder="5">
                     <label for="outputItemFoodSaturation${tradeCount}">Food Saturation :</label>
                         <input type="text" id="outputItemFoodSaturation${tradeCount}" placeholder="5">
-                    <label for="outputItemFoodCanAlwaysEat${tradeCount}">Food Can Alaways Eat:</label>
+                    <label for="outputItemFoodCanAlwaysEat${tradeCount}">Food Can Always Eat:</label>
                         <select id="outputItemFoodCanAlwaysEat${tradeCount}">
                             <option value="0">Non</option>
                             <option value="1">Oui</option>
@@ -461,12 +467,7 @@ function addTrade() {
                     </select>
                 <div id="outputItemJukeboxPlayableSection${tradeCount}" style="display: none;">
                     <label for="outputItemJukeboxPlayableSong${tradeCount}">Jukebox Playable Song :</label>
-                        <input type="text" id="outputItemJukeboxPlayableSong${tradeCount}" placeholder="minecraft:precipice">
-                    <label for="outputItemJukeboxPlayableShowInTooltip${tradeCount}">Jukebox Playable Show In Tooltip :</label>
-                        <select id="outputItemJukeboxPlayableShowInTooltip${tradeCount}">
-                            <option value="0">Non</option>
-                            <option value="1">Oui</option>
-                        </select>
+                        <input type="text" id="outputItemJukeboxPlayableSong${tradeCount}"placeholder="minecraft:precipice">
                 </div><hr><br>
 
                 <label for="outputItemCanDestroy${tradeCount}" class="output-item-container">Can Destroy :</label>
@@ -484,6 +485,19 @@ function addTrade() {
                 <!-- Enchantments will be added here -->
                 </div>
                 <button onclick="addAttributeModifier(${tradeCount})">Ajouter un Attribute Modifier</button><br><br><hr>
+
+                <label for="enchantmentGlintOveride${tradeCount}">Enchantment Glint Override :</label>
+                    <select id="enchantmentGlintOveride${tradeCount}">
+                        <option value="2">Unset</option>
+                        <option value="0">Non</option>
+                        <option value="1">Oui</option>
+                    </select><br><hr>
+
+                <label for="outputHideToolTyp"${tradeCount}">Hide Tool Tip :</label>
+                    <select id="outputHideToolTip${tradeCount}">
+                        <option value="0">Non</option>
+                        <option value="1">Oui</option>
+                    </select><br><hr>
 
                 <label for="outputItemJson${tradeCount}">Autre JSON :</label>
                 <input type="text" id="outputItemJson${tradeCount}" placeholder="ex : pages:[{text:Test}'],title:Test,author:Jerem2206"><br><hr>
@@ -672,6 +686,11 @@ function generateCommand() {
                     command += `"minecraft:unbreakable":{},`;
                 }
 
+                const outputItemDamage = document.getElementById(`outputDamage${i}`).value;
+                if (outputItemDamage) {
+                    command += `"minecraft:damage":${outputItemDamage},`;
+                }
+
                 const outputItemRarity = document.getElementById(`outputItemRarity${i}`).value;
                 if (outputItemRarity != `unset`) {
                     command += `"minecraft:rarity":"${outputItemRarity}",`
@@ -840,14 +859,10 @@ function generateCommand() {
 
                 const outputItemJukeboxPlayable = document.getElementById(`outputItemJukeboxPlayable${i}`).value;
                 const outputItemJukeboxPlayableSong = document.getElementById(`outputItemJukeboxPlayableSong${i}`).value;
-                const outputItemJukeboxPlayableShowInTooltip = document.getElementById(`outputItemJukeboxPlayableShowInTooltip${i}`).value;
                 if (outputItemJukeboxPlayable != 0) {
                     command += `"minecraft:jukebox_playable":{`;
                     if (outputItemJukeboxPlayableSong) {
                         command += `song:"${outputItemJukeboxPlayableSong}",`;
-                    }
-                    if (outputItemJukeboxPlayableShowInTooltip != 0) {
-                        command += `show_in_tooltip:true,`;
                     }
                     command = command.replace(/,\s*$/, ''); // Supprimez la virgule finale
                     command += `},`;
@@ -877,6 +892,26 @@ function generateCommand() {
                     });
                     command = command.replace(/,\s*$/, ''); // Supprimez la virgule finale
                     command += `]},`;
+                }
+
+                const enchantmentGlintOveride = document.getElementById(`enchantmentGlintOveride${i}`).value;
+                if (enchantmentGlintOveride != 2) {
+                    command += `minecraft:enchantment_glint_override":`;
+                    if (enchantmentGlintOveride == 1) {
+                        command += `true,`;
+                    } else if (enchantmentGlintOveride == 0) {
+                        command += `false,`;
+                    }
+                }
+                
+                const outputHideToolTip = document.getElementById(`outputHideToolTip${i}`).value;
+                if (outputHideToolTip != 0) {
+                    command += `"minecraft:hide_tooltip":{},`;
+                }
+
+                const outputMaxStackSize = document.getElementById(`outputMaxStackSize${i}`).value;
+                if (outputMaxStackSize) {
+                    command += `"minecraft:max_stack_size":${outputMaxStackSize},`;
                 }
 
             }
